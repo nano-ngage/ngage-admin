@@ -1,8 +1,15 @@
 // Inferno & Routes
 import Inferno from 'inferno';
+import { Router } from 'inferno-router';
 import { createBrowserHistory } from 'history';
-import createRoutes from '../shared/routes.jsx';
+import routes from '../shared/routes.jsx';
 
 const history = createBrowserHistory();
 
-Inferno.render(createRoutes(history), document.getElementById('inferno-view'));
+Inferno.render((
+  <ContextWrapper data={window.APP_STATE || {}}>
+    <Router history={history}>
+      {routes}
+    </Router>
+  </ContextWrapper>
+), document.getElementById('inferno-view'));
