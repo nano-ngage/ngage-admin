@@ -1,2 +1,5 @@
 <div id="inferno-view" data-ui-role="content">{{{content}}}</div>
-<script src="dist/bundle.js" defer></script>
+<script>
+  window.APP_STATE = {{{context}}};
+</script>
+<script src="/dist/bundle.app.js"></script>
