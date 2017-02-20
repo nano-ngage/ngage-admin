@@ -1,0 +1,362 @@
+/*Create PPT*/
+body {
+  background-color: #ffffff;
+}
+.container {
+  margin: 20vmin;
+}
+.ppt {
+  display: flex;
+  flex-basis: 150px;
+  height: 13vmin;
+  background-color: #288a2b;
+  box-shadow: 5px 5px 5px 0 rgba(230,230,230,2);
+  margin: 10px;
+  border-radius: 5px;
+  text-decoration: none;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+}
+.ppt:hover {
+  background-color: #43a047;
+}
+.ppt:focus {
+  border: 2px solid black;
+}
+.option {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  font-family: Arial, Helvetica, sans-serif;
+  color:#ffffff;
+}
+@media screen and (max-width: 700px) {
+  .option {
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    justify-content: center;
+    align-items: center;
+  }
+}
+.option2 {
+  font-size: 1.8rem;
+  font-family: Arial, Helvetica, sans-serif;
+  color:#ffffff;
+  text-decoration: none;
+}
+.presentation {
+  font-size: 1.5rem;
+  font-weight: 600;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #000000;
+}
+.input { 
+  display: flex;
+  font-size: 1.5rem;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #000000;
+  background-color: #ffffff;  
+  width: 65vw;
+  padding: 4px 8px;
+  margin-top: 40px;
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 2px solid black;
+  text-align: center;
+}
+.qinput { 
+  display: flex;
+  font-size: 1.5rem;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #000000;
+  background-color: #ffffff;  
+  padding: 4px 8px;
+  margin-top: 23px;
+  margin-bottom: 10px;
+  border: none;
+  border-bottom: 2px solid black;
+  text-align: center;
+  width: 65vw;
+}
+@media screen and (max-width: 700px) {
+  .input {
+    width: 30vmin;
+  }
+}
+@media screen and (max-width: 700px) {
+  .qInput {
+    width: 30vmin;
+  }
+}
+.button {
+    display: flex;
+    background-color: #288a2b;
+    border: none;
+    font-size: 1.3rem;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #ffffff;
+    padding: 10px 20px;
+    text-decoration: none;
+    margin: 23px;
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow: 5px 5px 5px 0 rgba(230,230,230,2);
+}
+.button:hover {
+    background-color: #43a047;
+}
+.submitFlex{
+  display: flex;
+  width: 75vw;
+  justify-content: center;
+  align-content: center;
+  flex-flow: row wrap;
+/*  -webkit-transition: 200ms;
+  transition: 200ms;*/
+}
+.addQuestion {
+  display: flex;
+  justify-content: space-between;
+  flex-flow: row wrap;
+  -webkit-transition: 200ms;
+  transition: 200ms;
+  margin-bottom: 25px;
+  /* instead of row-wrap, reduce font as page gets smaller?*/
+}
+.question {
+  display: flex;
+  width: 78vw;
+  justify-content: center;
+  background-color: #c7e3c8;
+  border: none;
+  font-size: 1.3rem;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #ffffff;
+  padding: 10px 20px;
+  text-decoration: none;
+  margin: 2px 9px 30px 9px;
+  border-radius: 5px;
+  flex-flow: row wrap;
+  box-shadow: 5px 5px 5px 0 rgba(230,230,230,2);
+}
+.presentationText {
+  display: flex;
+  margin-top: 30px;
+  margin-bottom: -15px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #000000;
+}
+.pptbutton {
+    display: flex;
+    background-color: #288a2b;
+    border: none;
+    font-size: 1.3rem;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #ffffff;
+    padding: 10px 20px;
+    text-decoration: none;
+    margin: 15px 0px 15px 352px;
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow: 5px 5px 5px 0 rgba(230,230,230,2);
+}
+.pptbutton:hover {
+    background-color: #43a047;
+}
+.viewQuestion {
+  display: flex;
+  height: 10vh;
+  width: 75vw;
+  background-color: #288a2b;
+  box-shadow: 5px 5px 5px 0 rgba(230,230,230,2);
+  margin: 2vmin 10vmin 2vmin 10vmin;
+  border-radius: 5px;
+  text-decoration: none;
+  justify-content: space-between;
+  align-items: center;
+}
+.title {
+  display: flex;
+  margin: 1rem 1rem 1rem 1.5rem;
+  font-size: 1.5rem;
+  font-family: Arial, Helvetica, sans-serif;
+  color:#ffffff;
+  text-decoration: none;
+  margin-top: -10px;
+}
+.actions {
+  display: flex;
+  margin: 1rem;
+  font-size: 1.5rem;
+  font-family: Arial, Helvetica, sans-serif;
+  color:#ffffff;
+  text-decoration: none;
+}
+.action {
+  cursor: pointer;
+}
+.questionText {
+  display: flex;
+  margin-top: 25px;
+  margin-bottom: 5px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #000000;
+}
+.submitFlexPpt{
+  display: flex;
+  width: 75vw;
+  justify-content: center;
+  align-content: center;
+  flex-flow: row wrap;
+  margin-left: 95px;
+/*  -webkit-transition: 200ms;
+  transition: 200ms;*/
+}
+/*View PPT*/
+.viewContainer {
+  display: flex;
+  margin: 10px;
+  justify-content: space-around;
+  flex-flow: row wrap;
+  -webkit-transition: 200ms;
+  transition: 200ms;
+}
+.viewPpt {
+  display: flex;
+  /*flex-basis: 250px;*/
+  height: 10vh;
+  width: 75vw;
+  background-color: #1f5768;
+  box-shadow: 5px 5px 5px 0 rgba(230,230,230,2);
+  margin: 3vmin 10vmin 3vmin 10vmin;
+  border-radius: 5px;
+  text-decoration: none;
+  justify-content: space-between;
+  align-items: center;
+}
+.viewPpt:hover {
+  background-color: #1f6e8f;
+}
+.title {
+  display: flex;
+  margin: 1rem 1rem 1rem 1.5rem;
+  font-size: 1.5rem;
+  font-family: Arial, Helvetica, sans-serif;
+  color:#ffffff;
+  text-decoration: none;
+}
+.action:hover {
+  text-decoration: underline;
+}
+/*Nav*/
+body, p, h1, h2, h3, h4, ul, li {
+  margin: 0;
+  padding: 0;
+  max-height: 100vh;
+}
+img {
+  height: 1.7rem;
+  margin: 0 0.4rem 0 0;
+}
+.navContainer > nav > ul {
+  list-style-type: none;
+}
+.navbg {
+  position: fixed;
+  top: 0;
+  z-index: 9000;
+  width: 100%;
+  background-color: #288a2b;
+  border-bottom: 1px solid #ddd;
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
+}
+.navContainer {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  max-width: 1000px;
+  margin: 0 auto;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.navHeader {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+.navLogo {
+  color: #c7e3c8;
+  text-decoration: none;
+}
+.navLogo:hover {
+  color: #43a047;
+}
+.navul {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  max-width: 700px;
+}
+.navul > li {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+.navLink {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  color: #c7e3c8;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.3rem;
+  -webkit-transition: 200ms;
+  transition: 200ms;
+}
+.navLink:hover {
+  background-color: #43a047;
+}
+.navLink:focus {
+  background-color: #43a047;
+}
+@media screen and (min-width: 701px) {  
+  .navLink {
+    padding: 1rem 1.5rem;
+  }
+}
+@media screen and (max-width: 1040px) {
+  .navLogo {
+    margin-left: 1rem;
+  }
+}
+
+/* MOBILE MENU */
+@media screen and (max-width: 700px) {
+  .navLink {
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    justify-content: center;
+    align-items: center;
+  }
+}
