@@ -18,7 +18,7 @@ function fakeAjax(cb) {
       }
     ]
   };
-  var randomDelay = (Math.round(Math.random() * 1E4) % 8000) + 1000;
+  var randomDelay = 0;
 
   console.log("Requesting: with delay", randomDelay);
 
