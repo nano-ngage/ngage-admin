@@ -11,7 +11,7 @@ module.exports = env => {
     },
     output: {
       filename: 'bundle.[name].js',
-      path: path.join(__dirname, 'src', 'dist'),
+      path: path.join(__dirname, 'src', 'dist', 'js'),
       pathinfo: ifNotProd()
     },
     devtool: ifProd('source-map', 'eval'),
@@ -21,6 +21,10 @@ module.exports = env => {
           test: /\.jsx?/,
           loaders: [ 'babel' ],
           exclude: /node_modules/
+        },
+        {
+        test: /\.css$/,
+        loaders: ['style', 'css']
         }
       ]
     },
