@@ -26,6 +26,7 @@ class Create extends Component {
 
   static requestData(params, domain='') {
     return initPid();
+    // need args?
   }
 
   constructor(props, context) {
@@ -48,7 +49,7 @@ class Create extends Component {
 
   componentDidMount() {
     // eventually use get request to fetch all Q's associated with ppt and set state for edit ppt
-    // initPid();
+    // initPid(his.state.userID);
     // .then(data => {this.setState({userID: data.userID});
     console.log(initPid(this.state.userID));
   }
