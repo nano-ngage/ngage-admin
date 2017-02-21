@@ -58,8 +58,8 @@ export default class Home extends Component {
 
   //event handler
   handleQuestionClick(e) {
-    console.log('e.target', e.target)
-    console.log('this.state:', this.state)
+    // console.log('e.target', e.target)
+    // console.log('this.state:', this.state)
   }
 
   render() {
@@ -78,7 +78,7 @@ export default class Home extends Component {
   // This is placeholder, but we should also invoke our ajax requests here (if there is a different)
   // in state
   componentDidMount() {
-    console.log('this.state', this.state)
-    console.log('mounted!');
+    // console.log('this.state', this.state)
+    // console.log('mounted!');
   }
 }
