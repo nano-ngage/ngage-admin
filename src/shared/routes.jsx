@@ -4,8 +4,10 @@ import { Router, Route, IndexRoute } from 'inferno-router';
 // Import Components Here
 import App from './components/index.jsx';
 import Home from './components/Home.jsx';
-import CreatePresentation from './components/CreatePresentation.jsx';
-import ViewPresentations from './components/ViewPresentations.jsx';
+
+import CreatePresentation from './components/CreatePresentation/CreatePresentation.jsx';
+import ViewPresentations from './components/ViewPresentations/ViewPresentations.jsx';
+
 
 export default (
   <Route path="/" component={ App }>

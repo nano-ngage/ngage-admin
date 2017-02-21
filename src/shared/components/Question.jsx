@@ -7,7 +7,7 @@ export default class Question extends Component {
 
     return (
       <div>
-        <h4>{data.title}</h4>
+        <h4 onClick={this.props.handleQuestionClick}>{data.title}</h4>
         <p>{data.body}</p>
       </div>
     );
