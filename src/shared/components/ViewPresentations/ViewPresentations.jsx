@@ -1,25 +1,56 @@
 import Inferno from 'inferno';
 import Component from 'inferno-component';
 import ViewPpt from './ViewPpt.jsx';
+import propTypes from 'proptypes';
+Inferno.PropTypes = propTypes;
+
+function getPpts(userID) {
+  return fetch('http://localhost:5000/pByU/'+userID,{
+    method: 'GET',
+    mode: 'CORS',
+    headers: {'Content-Type': 'application/JSON'},
+    }).then(data => data.json());
+}
+
+function deletePpt(pid) {
+  return fetch('http://localhost:5000/UPDATEHERE',{
+    method: 'DELETE',
+    mode: 'CORS',
+    headers: {'Content-Type': 'application/JSON'},
+    body: JSON.stringify({'UPDATEHERE': 'FOR PID'})
+    }).then(data => data.json());
+  // add qid with corrent format above
+}
 
 class ViewPresentations extends Component {
-  constructor(props) {
-    super(props);
+  static get NAME() {
+    return 'ViewPresentations';
+  }
+
+  static get contextTypes() {
+    return {data: inferno.PropTypes.object};
+  }
+
+  static requestData(params, domain='') {
+    return getPpts();
+    // need args?
+  }
+
+  constructor(props, context) {
+    super(props, context);
     this.state = {
-      userID: 0,
-      ppts: [{presentationID: 0, title: 'Presentation Title'}, {presentationID: 0, title: 'Presentation Title'}, {presentationID: 0, title: 'Presentation Title'}, {presentationID: 0, title: 'Presentation Title'}]
+      userID: 22,
+      ppts: []
     };
+
+    // revise userID after auth is enabled
 
     this.deletePpt = this.deletePpt.bind(this);
   }
 
   componentDidMount() {
-    //  FETCH USER'S PRESENTATIONS
-    // myAPI.fetch('/item-names').then((data) => {
-    //   this.setState({
-    //     data
-    //   });
-    // });
+   getPpts(this.state.userID)
+    .then(data => {this.setState({ppts: data})});
   }
 
   deletePpt(pid) {
@@ -30,14 +61,7 @@ class ViewPresentations extends Component {
       }
     });
     this.setState({ppts: ppts});
-    // fetch('/deleteQ', {
-    //   method: "DELETE",
-    //   body: {questionID: qid}
-    //   }).then((data) => {
-    //   this.setState({
-    //     data
-    //   });
-    // });
+    deletePpt(pid);
   }
 
   render() {
