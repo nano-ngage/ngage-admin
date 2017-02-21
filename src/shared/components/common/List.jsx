@@ -18,7 +18,7 @@ export default class List extends Component {
     const markupItems = items.map((item, index) => {
       return (
         <li key={index} >
-          <Type data={item} />
+          <Type handleQuestionClick={this.props.handleQuestionClick} data={item} />
         </li>
       );
     });

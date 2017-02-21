@@ -1,6 +1,7 @@
 import Inferno from 'inferno';
 import Component from 'inferno-component';
-import Nav from './Nav.jsx';
+import Nav from './common/Nav.jsx';
+
 
 export default class App extends Component {
   constructor(props) {
@@ -21,9 +22,11 @@ export default class App extends Component {
 
   render() {
     return (
-      <div  id="app">
-      <Nav />
-      {this.props.children}
+      <div id="app">
+        <h1>ngage</h1>
+        <hr />
+        <Nav />
+        {this.props.children}
       </div>
     );
   }

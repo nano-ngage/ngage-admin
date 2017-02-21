@@ -52,9 +52,15 @@ export default class Home extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = context.data[Home.NAME] || { items: [] };
-    console.log('this.state:', this.state);
+    this.handleQuestionClick = this.handleQuestionClick.bind(this);
   }
 
+
+  //event handler
+  handleQuestionClick(e) {
+    console.log('e.target', e.target)
+    console.log('this.state:', this.state)
+  }
 
   render() {
     return (
@@ -63,13 +69,16 @@ export default class Home extends Component {
           <h3>Welcome to the ngage home page!</h3>
         </header>
         <section>
-          <List items={this.state.items} itemType={Question}/>
+          <List handleQuestionClick={this.handleQuestionClick} items={this.state.items} itemType={Question}/>
         </section>
       </section>
     );
   }
 
+  // This is placeholder, but we should also invoke our ajax requests here (if there is a different)
+  // in state
   componentDidMount() {
+    console.log('this.state', this.state)
     console.log('mounted!');
   }
 }

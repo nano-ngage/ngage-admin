@@ -18,13 +18,13 @@ module.exports = env => {
     module: {
       loaders: [
         {
-          test: /\.jsx?/,
+          test: /\.jsx$/,
           loaders: [ 'babel' ],
           exclude: /node_modules/
         },
         {
-        test: /\.css$/,
-        loaders: ['style', 'css']
+          test: /\.css$/,
+          loaders: [ 'style', 'css' ]
         }
       ]
     },
