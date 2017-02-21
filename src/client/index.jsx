@@ -3,7 +3,6 @@ import Inferno from 'inferno';
 import { Router } from 'inferno-router';
 import { createBrowserHistory } from 'history';
 import routes from '../shared/routes.jsx';
-import {ContextWrapper} from '../shared/components/common/ContextWrapper.jsx'
 
 import ContextWrapper from '../shared/components/common/ContextWrapper.jsx';
 
