@@ -5,7 +5,8 @@ import ViewQuestion from './ViewQuestion.jsx';
 import propTypes from 'proptypes';
 Inferno.PropTypes = propTypes;
 
-// make handleNewQ function and pass to addQ (like deleteQ) and pass back the new question object
+// create edit Q as seperate everything...
+
 function initPid(userID) {
   return fetch('http://localhost:5000/postPByU',{
     method: 'POST',
@@ -13,6 +14,45 @@ function initPid(userID) {
     headers: {'Content-Type': 'application/JSON'},
     body: JSON.stringify({'userID': userID})
     }).then(data => data.json());
+}
+
+function updateTitle(pid, title) {
+  return fetch('http://localhost:5000/UPDATEHERE',{
+    method: 'POST',
+    mode: 'CORS',
+    headers: {'Content-Type': 'application/JSON'},
+    body: JSON.stringify({'UPDATEHERE': 'FOR PID AND TITLE'})
+    }).then(data => data.json());
+  // update above once title is added to presentation schema
+}
+
+function postQ(pid, type, question) {
+  return fetch('http://localhost:5000/qByP',{
+    method: 'POST',
+    mode: 'CORS',
+    headers: {'Content-Type': 'application/JSON'},
+    body: JSON.stringify({'presentationID': pid, 'type': type, 'question': question})
+    }).then(data => data.json());
+}
+
+function editQ(qid) {
+  return fetch('http://localhost:5000/UPDATEHERE',{
+    method: 'PUT',
+    mode: 'CORS',
+    headers: {'Content-Type': 'application/JSON'},
+    body: JSON.stringify({'UPDATEHERE': 'FOR PID, QID, QUESTION, TYPE'})
+    }).then(data => data.json());
+  // add qid with corrent format above
+}
+
+function deleteQ(qid) {
+  return fetch('http://localhost:5000/UPDATEHERE',{
+    method: 'DELETE',
+    mode: 'CORS',
+    headers: {'Content-Type': 'application/JSON'},
+    body: JSON.stringify({'UPDATEHERE': 'FOR QID'})
+    }).then(data => data.json());
+  // add qid with corrent format above
 }
 
 class Create extends Component {
@@ -36,12 +76,15 @@ class Create extends Component {
       presentationID: 0,
       userID: 22,
       title: '',
+      type: 4,
+      qid: 0,
       questions: [{questionID: 1, question:'What?'}, {questionID: 2, question:'Who?'}, {questionID: 3, question:'Why?'}]
     };
 
     // revise userID after auth is enabled
 
     this.handleTitle = this.handleTitle.bind(this);
+    this.handleType = this.handleType.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.deleteQuestion = this.deleteQuestion.bind(this);
     this.addToViewQuestions = this.addToViewQuestions.bind(this);
@@ -49,9 +92,8 @@ class Create extends Component {
 
   componentDidMount() {
     // eventually use get request to fetch all Q's associated with ppt and set state for edit ppt
-    // initPid(his.state.userID);
-    // .then(data => {this.setState({userID: data.userID});
-    console.log(initPid(this.state.userID));
+    initPid(this.state.userID)
+      .then(data => {this.setState({presentationID: data.presentationID})});
   }
 
   handleTitle(e) {
@@ -59,18 +101,13 @@ class Create extends Component {
     this.setState({title: e.target.value});
   }
 
+  handleType() {
+    this.setState({type: 4});
+  }
+
   handleSubmit(e) {
     e.preventDefault();
-    this.state.presentationID;
-    // PUT request with title for presentation
-    // fetch('/pptTitle, {
-    //   method: "PUT",
-    //   body: {questionID: qid}
-    //   }).then((data) => {
-    //   this.setState({
-    //     data
-    //   });
-    // });
+    initPid(this.state.presentationID, this.state.title);
   }
 
   deleteQuestion(qid) {
@@ -81,28 +118,16 @@ class Create extends Component {
       }
     });
     this.setState({questions: questions});
-    // fetch('/deleteQ', {
-    //   method: "DELETE",
-    //   body: {questionID: qid}
-    //   }).then((data) => {
-    //   this.setState({
-    //     data
-    //   });
-    // });
+    deleteQ(qid);
   }
 
   addToViewQuestions(newQuestion) {
-    var questions = this.state.questions;
-    questions.push(newQuestion);
-    this.setState({questions: questions});
-    // fetch('/addQ', {
-    //   method: "POST",
-    //   body: {question: question}
-    //   }).then((data) => {
-    //   this.setState({
-    //     data
-    //   });
-    // });
+    postQ(this.state.presentationID, this.state.type, newQuestion)
+      .then(data => {
+        // this.setState({questions: this.state.questions.push({question: newQuestion, qid: data.questionID})});
+      });
+
+    // make sure to create answer types with questionID!!!!!
   }
 
   render() {
@@ -120,7 +145,7 @@ class Create extends Component {
           <a href="#" className="ppt"><p className="option">Multiple Choice</p></a>
           <a href="#" className="ppt"><p className="option">Free Response</p></a>
           <a href="#" className="ppt"><p className="option2">🙁 😐 🙂</p></a>
-          <a href="#" className="ppt" onClick={this.questionType}><p className="option2">👍 👎</p></a>
+          <a href="#" className="ppt" onClick={this.handleType}><p className="option2">👍 👎</p></a>
           <a href="#" className="ppt"><p className="option">⭐ ⭐ ⭐</p></a>
         </div>
 
@@ -140,6 +165,7 @@ class Create extends Component {
 
         <AddQuestion presentationID={this.state.presentationID}
           addToViewQuestions={this.addToViewQuestions}
+          type = {this.state.type}
           length={this.state.questions.length + 1} />
 
         <div className="submitFlex">

@@ -1,5 +1,6 @@
 import Inferno from 'inferno';
 import Component from 'inferno-component';
+import { Link } from 'inferno-router';
 
 class ViewPpt extends Component {
   constructor(props) {
@@ -10,7 +11,7 @@ class ViewPpt extends Component {
     return (
       <div>
         <div className="viewPpt">
-          <span className="title">{this.props.ppt.title}</span>
+          <span className="title">PID: {this.props.ppt.presentationID} (todo: change to title)</span>
             <span className="actions"><span className="action">Start</span>&nbsp;|&nbsp;
             <span className="action">Edit</span>&nbsp;|&nbsp;
             <span className="action" onClick={() => {this.props.delete(this.props.ppt.presentationID)}}>Delete</span></span>
