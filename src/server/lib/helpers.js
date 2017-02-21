@@ -1,6 +1,7 @@
 import ContextWrapper from '../../shared/components/common/ContextWrapper.jsx';
 import { renderToString, renderToStaticMarkup } from 'inferno-server';
 import { RouterContext } from 'inferno-router';
+import fetch from 'fetch-everywhere';
 
 export function extractComponents(mProps, mComponents) {
   const matchedComponents = mComponents || [];

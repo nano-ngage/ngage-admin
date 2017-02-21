@@ -2,18 +2,43 @@ import Inferno from 'inferno';
 import Component from 'inferno-component';
 import AddQuestion from './AddQuestion.jsx';
 import ViewQuestion from './ViewQuestion.jsx';
+import propTypes from 'proptypes';
+Inferno.PropTypes = propTypes;
 
 // make handleNewQ function and pass to addQ (like deleteQ) and pass back the new question object
+function initPid(userID) {
+  return fetch('http://localhost:5000/postPByU',{
+    method: 'POST',
+    mode: 'CORS',
+    headers: {'Content-Type': 'application/JSON'},
+    body: JSON.stringify({'userID': userID})
+    }).then(data => data.json());
+}
 
 class Create extends Component {
-  constructor(props) {
-    super(props);
+  static get NAME() {
+    return 'Create';
+  }
+
+  static get contextTypes() {
+    return {data: inferno.PropTypes.object};
+  }
+
+  static requestData(params, domain='') {
+    return initPid();
+  }
+
+  constructor(props, context) {
+    super(props, context);
     this.state = {
+      items: (context.data[Create.NAME] || []),
       presentationID: 0,
-      userID: 0,
+      userID: 22,
       title: '',
       questions: [{questionID: 1, question:'What?'}, {questionID: 2, question:'Who?'}, {questionID: 3, question:'Why?'}]
     };
+
+    // revise userID after auth is enabled
 
     this.handleTitle = this.handleTitle.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -22,15 +47,10 @@ class Create extends Component {
   }
 
   componentDidMount() {
-    // Generate presentation ID posting with userID
-    // eventually use get request to fetch all Q's associated with ppt and set state
-
-    //  put request to update ID
-    // myAPI.fetch('/item-names').then((data) => {
-    //   this.setState({
-    //     data
-    //   });
-    // });
+    // eventually use get request to fetch all Q's associated with ppt and set state for edit ppt
+    // initPid();
+    // .then(data => {this.setState({userID: data.userID});
+    console.log(initPid(this.state.userID));
   }
 
   handleTitle(e) {
