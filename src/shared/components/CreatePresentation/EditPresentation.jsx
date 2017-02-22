@@ -182,7 +182,7 @@ class Edit extends Component {
             <p className="questionText">Saved Questions<br/></p>
             {this.state.questions.map((question, index) => {
                 return (
-                  <ViewQuestion question={question} delete={this.deleteQuestion} />
+                  <ViewQuestion question={question} index={index} delete={this.deleteQuestion} />
                 )
               })
             }
