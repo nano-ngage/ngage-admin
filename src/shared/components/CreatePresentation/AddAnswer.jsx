@@ -26,10 +26,10 @@ class AddAnswer extends Component {
 
   render() {
     return (
-      <div className="viewAnswer">
+      <div className="viewQuestion">
           <input type="text" className="qinput" placeholder="Answer goes here" value={this.state.answer} onInput={this.handleAnswer} required />
-          <span className="actions"><span className="action" onClick={() => {this.handleCorrect(this.props.index)}}>Correct?</span>&nbsp;|&nbsp;
-            <span className="action" onClick={() => {this.props.delete(this.props.index)}}>Delete</span></span>
+          <span className="actions"><span className="action" onClick={() => {this.handleCorrect(this.props.index)}}>Correct?</span>
+            <span className="action" onClick={() => {this.props.delete(this.props.index)}}>X Delete</span></span>
       </div>
     );
   }

@@ -173,6 +173,21 @@ body {
 .pptbutton:hover {
     background-color: #43a047;
 }
+.answer {
+  display: flex;
+  width: 78vw;
+  justify-content: center;
+  background-color: #c7e3c8;
+  border: none;
+  font-size: 1.3rem;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #ffffff;
+  padding: 10px 20px 0 10px;
+  text-decoration: none;
+  margin: 2px 9px 2px 9px;
+  border-radius: 5px;
+  flex-flow: row wrap;
+}
 .viewQuestion {
   display: flex;
   height: 10vh;
