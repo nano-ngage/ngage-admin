@@ -6,7 +6,7 @@ import propTypes from 'proptypes';
 Inferno.PropTypes = propTypes;
 
 // create edit Q as seperate everything...
-// check most recent presentationID for #Qs
+// check most recent presentationID for #Qs before creating new pid
 
 var dbURL = 'http://localhost:5000';
 
@@ -43,6 +43,15 @@ function postQ(pid, type, question) {
     mode: 'CORS',
     headers: {'Content-Type': 'application/JSON'},
     body: JSON.stringify({'presentationID': pid, 'type': type, 'question': question})
+    }).then(data => data.json());
+}
+
+function postAnswers(qid, answers) {
+  return fetch(dbURL + '/aByQs',{
+    method: 'POST',
+    mode: 'CORS',
+    headers: {'Content-Type': 'application/JSON'},
+    body: JSON.stringify({'questionID': qid, 'answers': answers})
     }).then(data => data.json());
 }
 
@@ -87,7 +96,8 @@ class Create extends Component {
       presentationID: 0,
       userID: 22,
       title: '',
-      type: 4,
+      type: 1,
+      typeDescription: 'Multiple Choice',
       qid: 0,
       questions: []
     };
@@ -120,8 +130,17 @@ class Create extends Component {
     this.setState({title: e.target.value});
   }
 
-  handleType() {
-    this.setState({type: 4});
+  handleType(e, type) {
+    e.preventDefault();
+    this.setState({type: type});
+    var types = {
+      1: 'Multiple Choice',
+      2: 'Free Response',
+      3: '🙁 😐 🙂',
+      4: '👍 👎',
+      5: '⭐ ⭐ ⭐'
+    };
+    this.setState({typeDescription: types[type]});
   }
 
   handleSubmit(e) {
@@ -140,15 +159,14 @@ class Create extends Component {
     deleteQ(qid);
   }
 
-  addToViewQuestions(newQuestion) {
+  addToViewQuestions(newQuestion, answers) {
     postQ(this.state.presentationID, this.state.type, newQuestion)
       .then(data => {
         var questions = this.state.questions;
         questions.push({question: newQuestion, qid: data.questionID});
         this.setState({questions: questions});
       });
-
-    // make sure to create answer types with questionID!!!!!
+    postAnswers(data.questionID, answers);
   }
 
   render() {
@@ -161,13 +179,13 @@ class Create extends Component {
             </div>
         </div>
 
-      <p className="presentation">&nbsp;Presentation Type:</p>
+      <p className="presentation">&nbsp;Presentation Type: {this.state.typeDescription}</p>
         <div className="addQuestion">
-          <a href="#" className="ppt"><p className="option">Multiple Choice</p></a>
-          <a href="#" className="ppt"><p className="option">Free Response</p></a>
-          <a href="#" className="ppt"><p className="option2">🙁 😐 🙂</p></a>
-          <a href="#" className="ppt" onClick={this.handleType}><p className="option2">👍 👎</p></a>
-          <a href="#" className="ppt"><p className="option">⭐ ⭐ ⭐</p></a>
+          <a href="#" className="ppt" onClick={(e) => {this.handleType(e, 1)}}><p className="option">Multiple Choice</p></a>
+          <a href="#" className="ppt" onClick={(e) => {this.handleType(e, 2)}}><p className="option">Free Response</p></a>
+          <a href="#" className="ppt" onClick={(e) => {this.handleType(e, 3)}}><p className="option2">🙁 😐 🙂</p></a>
+          <a href="#" className="ppt" onClick={(e) => {this.handleType(e, 4)}}><p className="option2">👍 👎</p></a>
+          <a href="#" className="ppt" onClick={(e) => {this.handleType(e, 5)}}><p className="option">⭐ ⭐ ⭐</p></a>
         </div>
 
         {this.state.questions.length > 0 ?
