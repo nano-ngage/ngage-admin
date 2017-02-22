@@ -88,7 +88,7 @@ class AddQuestion extends Component {
               <input type="text" className="qinput" placeholder="Question goes here" value={this.state.question} onInput={this.handleQuestion} required />
                 
               {this.state.answers.length > 0 ?
-                (<div className="question">
+                (<div className="answer">
                   <p className="questionText">Answer Choices<br/></p>
                   {this.state.answers.map((answer, index) => {
                       return (
