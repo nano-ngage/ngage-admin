@@ -2,6 +2,9 @@
 body {
   background-color: #ffffff;
 }
+.pptcontainer {
+  margin: 10vmin;
+}
 .container {
   margin: 20vmin;
 }
@@ -189,14 +192,11 @@ body {
 }
 .actions {
   display: flex;
-  margin: 1rem;
   font-size: 1.5rem;
   font-family: Arial, Helvetica, sans-serif;
   color:#ffffff;
   text-decoration: none;
-}
-.action {
-  cursor: pointer;
+  margin: 1rem 1rem 1rem 1.5rem;
 }
 .questionText {
   display: flex;
@@ -250,8 +250,23 @@ body {
   color:#ffffff;
   text-decoration: none;
 }
+.action {
+  display: flex;
+  font-size: 1.5rem;
+  font-family: Arial, Helvetica, sans-serif;
+  color:#ffffff;
+  text-decoration: none;
+  cursor: pointer;
+}
 .action:hover {
   text-decoration: underline;
+}
+.action:visited {
+  display: flex;
+  font-size: 1.5rem;
+  font-family: Arial, Helvetica, sans-serif;
+  color:#ffffff;
+  text-decoration: none;
 }
 /*Nav*/
 body, p, h1, h2, h3, h4, ul, li {

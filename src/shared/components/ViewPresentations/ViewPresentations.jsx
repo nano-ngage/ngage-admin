@@ -50,7 +50,7 @@ class ViewPresentations extends Component {
 
   componentDidMount() {
    getPpts(this.state.userID)
-    .then(data => {this.setState({ppts: data})});
+    .then(data => {this.setState({ppts: data})}).catch(error => {console.log('unknown error loading users data.. refresh')});
   }
 
   deletePpt(pid) {
@@ -66,7 +66,7 @@ class ViewPresentations extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="pptcontainer">
       <p className="presentation">&nbsp;View Presentations:</p>
       <div className="viewContainer">
         {this.state.ppts.map((ppt, index) => {

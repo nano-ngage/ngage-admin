@@ -16,6 +16,14 @@ function initPid(userID) {
     }).then(data => data.json());
 }
 
+function getQs(pid) {
+  return fetch('http://localhost:5000/qByP/'+pid,{
+    method: 'GET',
+    mode: 'CORS',
+    headers: {'Content-Type': 'application/JSON'},
+    }).then(data => data.json());
+}
+
 function updateTitle(pid, title) {
   return fetch('http://localhost:5000/UPDATEHERE',{
     method: 'POST',
@@ -78,7 +86,7 @@ class Create extends Component {
       title: '',
       type: 4,
       qid: 0,
-      questions: [{questionID: 1, question:'What?'}, {questionID: 2, question:'Who?'}, {questionID: 3, question:'Why?'}]
+      questions: []
     };
 
     // revise userID after auth is enabled
@@ -92,8 +100,15 @@ class Create extends Component {
 
   componentDidMount() {
     // eventually use get request to fetch all Q's associated with ppt and set state for edit ppt
-    initPid(this.state.userID)
-      .then(data => {this.setState({presentationID: data.presentationID})});
+    if (this.props.params.id > 0) {
+      this.setState({presentationID: this.props.params.id});
+      getQs(this.props.params.id).then(data => {
+        this.setState({questions: data});
+      }).catch(error => {});
+    } else {
+      initPid(this.state.userID)
+        .then(data => {this.setState({presentationID: data.presentationID})});  
+    }
   }
 
   handleTitle(e) {
@@ -124,7 +139,9 @@ class Create extends Component {
   addToViewQuestions(newQuestion) {
     postQ(this.state.presentationID, this.state.type, newQuestion)
       .then(data => {
-        // this.setState({questions: this.state.questions.push({question: newQuestion, qid: data.questionID})});
+        var questions = this.state.questions;
+        questions.push({question: newQuestion, qid: data.questionID});
+        this.setState({questions: questions});
       });
 
     // make sure to create answer types with questionID!!!!!
