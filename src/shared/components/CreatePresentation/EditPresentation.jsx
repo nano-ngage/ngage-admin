@@ -44,6 +44,15 @@ function postQ(pid, type, question) {
     }).then(data => data.json());
 }
 
+function postAnswers(qid, answers) {
+  return fetch(dbURL + '/aByQs',{
+    method: 'POST',
+    mode: 'CORS',
+    headers: {'Content-Type': 'application/JSON'},
+    body: JSON.stringify({'questionID': qid, 'answers': answers})
+    }).then(data => data.json());
+}
+
 function editQ(qid) {
   return fetch(dbURL + '/UPDATEHERE',{
     method: 'PUT',
@@ -137,14 +146,15 @@ class Edit extends Component {
     deleteQ(qid);
   }
 
-  addToViewQuestions(newQuestion) {
+  addToViewQuestions(newQuestion, answers) {
     postQ(this.state.presentationID, this.state.type, newQuestion)
       .then(data => {
         var questions = this.state.questions;
-        questions.push({question: newQuestion, qid: data.questionID});
+        questions.push({question: newQuestion, qid: data.questionID, answers: answers});
         this.setState({questions: questions});
+        postAnswers(data.questionID, answers).catch(error => {});
+        console.log(data.questionID);
       });
-
     // make sure to create answer types with questionID!!!!!
   }
 
