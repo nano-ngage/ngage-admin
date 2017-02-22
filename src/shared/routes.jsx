@@ -12,7 +12,7 @@ import ViewPresentations from './components/ViewPresentations/ViewPresentations.
 export default (
   <Route path="/" component={ App }>
     <IndexRoute component={ Home } />
-    <Route path="create" component={ CreatePresentation } />
+    <Route path="create/:id" component={ CreatePresentation } />
     <Route path="view" component={ ViewPresentations } />
   </Route>
 )
