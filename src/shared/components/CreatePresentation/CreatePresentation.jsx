@@ -6,6 +6,8 @@ import propTypes from 'proptypes';
 Inferno.PropTypes = propTypes;
 
 // create edit Q as seperate everything...
+// check most recent presentationID for #Qs
+
 var dbURL = 'http://localhost:5000';
 
 function initPid(userID) {
@@ -107,6 +109,7 @@ class Create extends Component {
         this.setState({questions: data});
       }).catch(error => {});
     } else {
+      // check user's last ppt questions length for 0
       initPid(this.state.userID)
         .then(data => {this.setState({presentationID: data.presentationID})});  
     }
