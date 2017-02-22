@@ -15,11 +15,13 @@ body {
   background-color: #288a2b;
   box-shadow: 5px 5px 5px 0 rgba(230,230,230,2);
   margin: 10px;
+  padding: 5px;
   border-radius: 5px;
   text-decoration: none;
-  flex-flow: row wrap;
+/*  flex-flow: row wrap;*/
   justify-content: center;
   align-items: center;
+  overflow: auto
 }
 .ppt:hover {
   background-color: #43a047;
@@ -37,9 +39,17 @@ body {
 @media screen and (max-width: 700px) {
   .option {
     padding: 1rem 1.5rem;
-    font-size: 1rem;
+    font-size: 1.1rem;
+    flex-flow: none;
     justify-content: center;
     align-items: center;
+  }
+  .option2 {
+    font-size: 0.8rem;
+    font-family: Arial, Helvetica, sans-serif;
+    color:#ffffff;
+    flex-flow: none;
+    text-decoration: none;
   }
 }
 .option2 {
@@ -105,7 +115,7 @@ body {
     color: #ffffff;
     padding: 10px 20px;
     text-decoration: none;
-    margin: 23px;
+    margin: 10px 23px 23px 23px;
     cursor: pointer;
     border-radius: 5px;
     box-shadow: 5px 5px 5px 0 rgba(230,230,230,2);
@@ -119,17 +129,16 @@ body {
   justify-content: center;
   align-content: center;
   flex-flow: row wrap;
-/*  -webkit-transition: 200ms;
-  transition: 200ms;*/
+    -webkit-transition: 200ms;
+  transition: 200ms;
 }
 .addQuestion {
   display: flex;
   justify-content: space-between;
-  flex-flow: row wrap;
+  margin-bottom: 25px;
+  width: 82.5vw;
   -webkit-transition: 200ms;
   transition: 200ms;
-  margin-bottom: 25px;
-  /* instead of row-wrap, reduce font as page gets smaller?*/
 }
 .question {
   display: flex;
@@ -146,6 +155,8 @@ body {
   border-radius: 5px;
   flex-flow: row wrap;
   box-shadow: 5px 5px 5px 0 rgba(230,230,230,2);
+    -webkit-transition: 200ms;
+  transition: 200ms;
 }
 .presentationText {
   display: flex;
@@ -191,14 +202,50 @@ body {
 .viewQuestion {
   display: flex;
   height: 10vh;
+  width: 70vw;
+  background-color: #288a2b;
+  box-shadow: 5px 5px 5px 0 rgba(230,230,230,2);
+  margin: 2vmin 11vmin 2vmin 12vmin;
+  border-radius: 5px;
+  text-decoration: none;
+  justify-content: space-between;
+  align-items: center;
+}
+.viewAnswer {
+  display: flex;
+  height: 10vh;
   width: 75vw;
   background-color: #288a2b;
   box-shadow: 5px 5px 5px 0 rgba(230,230,230,2);
   margin: 2vmin 10vmin 2vmin 10vmin;
   border-radius: 5px;
   text-decoration: none;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+}
+.ainput { 
+  display: flex;
+  font-size: 1.5rem;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #000000;
+  background-color: #ffffff;  
+  padding: 4px 8px;
+  margin: 15px;
+  border: none;
+  border-bottom: 2px solid black;
+  text-align: center;
+  width: 45vw;
+}
+input[type=checkbox] {
+  content: "\2713";
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, .2);
+  font-size: 3rem;
+  color: #000000;
+  text-align: center;
+  width: 20px !important; /*Desired width*/
+  height: 28px !important; /*Desired height*/
+  cursor: pointer;
+  margin: 0;
 }
 .title {
   display: flex;
@@ -233,8 +280,8 @@ body {
   align-content: center;
   flex-flow: row wrap;
   margin-left: 95px;
-/*  -webkit-transition: 200ms;
-  transition: 200ms;*/
+  -webkit-transition: 200ms;
+  transition: 200ms;
 }
 /*View PPT*/
 .viewContainer {
@@ -286,6 +333,18 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   color:#ffffff;
   text-decoration: none;
+}
+.delete {
+  display: flex;
+  font-size: 1.8rem;
+  font-family: Arial, Helvetica, sans-serif;
+  color:#ffffff;
+  text-decoration: none;
+  cursor: pointer;
+  margin-right: 10px;
+}
+.delete:hover {
+  color: #000000;
 }
 /*Nav*/
 body, p, h1, h2, h3, h4, ul, li {

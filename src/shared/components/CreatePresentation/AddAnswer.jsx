@@ -27,9 +27,12 @@ class AddAnswer extends Component {
   render() {
     return (
       <div className="viewQuestion">
-          <input type="text" className="qinput" placeholder="Answer goes here" value={this.state.answer} onInput={this.handleAnswer} required />
-          <span className="actions"><span className="action" onClick={() => {this.handleCorrect(this.props.index)}}>Correct?</span>
-            <span className="action" onClick={() => {this.props.delete(this.props.index)}}>X Delete</span></span>
+          <input type="text" className="ainput" placeholder="Answer goes here" value={this.state.answer} onInput={this.handleAnswer} required />
+          <input type="checkbox" className="check" value="true" />
+          <span className="action" onClick={() => {this.handleCorrect(this.props.index)}}>Correct?</span>
+          <span className="actions">
+            <span className="delete" onClick={() => {this.props.delete(this.props.index)}}>⨂</span>
+          </span>
       </div>
     );
   }
