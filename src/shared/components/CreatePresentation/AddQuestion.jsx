@@ -24,9 +24,10 @@ class AddQuestion extends Component {
     e.preventDefault();
     if (this.state.question.length > 0) {
       var newQuestion = this.state.question;
+      var answers = [{"answer": "A", "correct": "false"}, {"answer": "B", "correct": "false"}, {"answer": "C", "correct": "true"}, {"answer": "D", "correct": "false"}];
+      this.props.addToViewQuestions(newQuestion, answers);
       this.setState({question: ''});
-      this.props.addToViewQuestions(newQuestion);
-    }
+    };
   }
 
   render() {
