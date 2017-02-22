@@ -6,6 +6,8 @@ import propTypes from 'proptypes';
 Inferno.PropTypes = propTypes;
 
 // create edit Q as seperate everything...
+// check most recent presentationID for #Qs before creating new pid
+
 var dbURL = 'http://localhost:5000';
 
 function initPid(userID) {
@@ -45,6 +47,7 @@ function postQ(pid, type, question) {
 }
 
 function postAnswers(qid, answers) {
+  console.log(answers);
   return fetch(dbURL + '/aByQs',{
     method: 'POST',
     mode: 'CORS',
@@ -94,7 +97,8 @@ class Edit extends Component {
       presentationID: 0,
       userID: 22,
       title: '',
-      type: 4,
+      type: 1,
+      typeDescription: 'Multiple Choice',
       qid: 0,
       questions: []
     };
@@ -116,6 +120,7 @@ class Edit extends Component {
         this.setState({questions: data});
       }).catch(error => {});
     } else {
+      // check user's last ppt questions length for 0
       initPid(this.state.userID)
         .then(data => {this.setState({presentationID: data.presentationID})});  
     }
@@ -126,8 +131,17 @@ class Edit extends Component {
     this.setState({title: e.target.value});
   }
 
-  handleType() {
-    this.setState({type: 4});
+  handleType(e, type) {
+    e.preventDefault();
+    this.setState({type: type});
+    var types = {
+      1: 'Multiple Choice',
+      2: 'Free Response',
+      3: '🙁 😐 🙂',
+      4: '👍 👎',
+      5: '⭐ ⭐ ⭐'
+    };
+    this.setState({typeDescription: types[type]});
   }
 
   handleSubmit(e) {
@@ -150,12 +164,10 @@ class Edit extends Component {
     postQ(this.state.presentationID, this.state.type, newQuestion)
       .then(data => {
         var questions = this.state.questions;
-        questions.push({question: newQuestion, qid: data.questionID, answers: answers});
+        questions.push({question: newQuestion, qid: data.questionID});
         this.setState({questions: questions});
-        postAnswers(data.questionID, answers).catch(error => {});
-        console.log(data.questionID);
+        postAnswers(data.questionID, answers);
       });
-    // make sure to create answer types with questionID!!!!!
   }
 
   render() {
@@ -168,13 +180,13 @@ class Edit extends Component {
             </div>
         </div>
 
-      <p className="presentation">&nbsp;Presentation Type:</p>
+      <p className="presentation">&nbsp;Presentation Type: {this.state.typeDescription}</p>
         <div className="addQuestion">
-          <a href="#" className="ppt"><p className="option">Multiple Choice</p></a>
-          <a href="#" className="ppt"><p className="option">Free Response</p></a>
-          <a href="#" className="ppt"><p className="option2">🙁 😐 🙂</p></a>
-          <a href="#" className="ppt" onClick={this.handleType}><p className="option2">👍 👎</p></a>
-          <a href="#" className="ppt"><p className="option">⭐ ⭐ ⭐</p></a>
+          <a href="#" className="ppt" onClick={(e) => {this.handleType(e, 1)}}><p className="option">Multiple Choice</p></a>
+          <a href="#" className="ppt" onClick={(e) => {this.handleType(e, 2)}}><p className="option">Free Response</p></a>
+          <a href="#" className="ppt" onClick={(e) => {this.handleType(e, 3)}}><p className="option2">🙁 😐 🙂</p></a>
+          <a href="#" className="ppt" onClick={(e) => {this.handleType(e, 4)}}><p className="option2">👍 👎</p></a>
+          <a href="#" className="ppt" onClick={(e) => {this.handleType(e, 5)}}><p className="option">⭐ ⭐ ⭐</p></a>
         </div>
 
         {this.state.questions.length > 0 ?

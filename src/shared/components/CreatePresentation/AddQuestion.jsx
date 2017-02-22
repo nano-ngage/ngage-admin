@@ -28,10 +28,12 @@ class AddQuestion extends Component {
 
   addAnswerInput(e) {
     e.preventDefault();
-    var newAnswer={index: this.state.answers.length, answer:'', correct: ''};
-    var answers = this.state.answers;
-    answers.push(newAnswer);
-    this.setState({answers: answers});
+    if (this.props.type === 1) {
+      var newAnswer={index: this.state.answers.length, answer:'', correct: ''};
+      var answers = this.state.answers;
+      answers.push(newAnswer);
+      this.setState({answers: answers});
+    }
   }
 
   deleteAnswer(aid) {
@@ -44,37 +46,52 @@ class AddQuestion extends Component {
     this.setState({answers: answers});
   }
 
-  addAnswerToView(answer, aid) {
+  addAnswerToView(ans, aid) {
     var answers = this.state.answers;
+    var newAnswers = [];
     this.state.answers.forEach((answer, index) => {
       if (answer.index !== aid) {
-        answers.push(answer);
-    // var newAnswer={index: this.state.answers.length, answer:'', correct: ''};
-    // questions.push({question: newQuestion, qid: data.questionID});
+        newAnswers.push(answer);
+      } else {
+        var newAnswer = {index: index, answer: ans, correct: answer.correct};
+        newAnswers.push(newAnswer);
       }
     });
-    this.setState({answers: answers});
+    this.setState({answers: newAnswers});
   }
 
   addAnswerCorrect(isCorrect, aid) {
     var answers = this.state.answers;
+    var newAnswers = [];
     this.state.answers.forEach((answer, index) => {
       if (answer.index !== aid) {
-        answers.push(answer);
-    // var newAnswer={index: this.state.answers.length, answer:'', correct: ''};
-    // questions.push({question: newQuestion, qid: data.questionID});
+        newAnswers.push(answer);
+      } else {
+        var newAnswer = {index: index, answer: answer.answer, correct: '' + isCorrect};
+        newAnswers.push(newAnswer);
       }
     });
-    this.setState({answers: answers});
+    this.setState({answers: newAnswers});
   }
 
   saveQuestion(e) {
     e.preventDefault();
     if (this.state.question.length > 0) {
       var newQuestion = this.state.question;
-      var answers = [{"answer": "A", "correct": "false"}, {"answer": "B", "correct": "false"}, {"answer": "C", "correct": "true"}, {"answer": "D", "correct": "false"}];
+      var answers;
+      if (this.props.type === 1) {
+        answers = this.state.answers;
+      } else {
+        var types = {
+          3: [{answer: '🙁', correct: 'true'}, {answer: '😐', correct: 'true'}, {answer: '🙂', correct: 'true'}],
+          4: [{answer: '👍', correct: 'true'}, {answer: '👎', correct: 'true'}],
+          5: [{answer: '⭐', correct: 'true'}, {answer: '⭐⭐', correct: 'true'}, {answer: '⭐⭐⭐', correct: 'true'}, {answer: '⭐⭐⭐⭐', correct: 'true'}, {answer: '⭐⭐⭐⭐⭐', correct: 'true'}]
+        };
+        answers = types[this.props.type];
+      }
       this.props.addToViewQuestions(newQuestion, answers);
       this.setState({question: ''});
+      this.setState({answers: []});
     };
   }
 
@@ -87,12 +104,12 @@ class AddQuestion extends Component {
               <div className="submitFlex">
               <input type="text" className="qinput" placeholder="Question goes here" value={this.state.question} onInput={this.handleQuestion} required />
                 
-              {this.state.answers.length > 0 ?
+              {this.props.type === 1 && this.state.answers.length > 0 ?
                 (<div className="answer">
-                  <p className="questionText">Answer Choices<br/></p>
+                  <p className="questionText">Multiple Choice Answers<br/></p>
                   {this.state.answers.map((answer, index) => {
                       return (
-                        <AddAnswer answer={answer} index={index} add={this.addAnswerToView} delete={this.deleteAnswer} />
+                        <AddAnswer answer={answer} index={index} add={this.addAnswerToView} correct={this.addAnswerCorrect} delete={this.deleteAnswer} />
                       )
                     })
                   }
@@ -101,7 +118,7 @@ class AddQuestion extends Component {
                 ) : ''
               }
 
-                <button className="button" onClick={this.addAnswerInput}>Add New Answer</button>
+                {this.props.type === 1 ? (<button className="button" onClick={this.addAnswerInput}>Add New Answer</button>) : ''}
                 <button type="submit" className="button">✓ Save Question</button>
                 </div>
               </form>
