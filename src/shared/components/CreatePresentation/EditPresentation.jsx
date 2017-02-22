@@ -64,9 +64,9 @@ function deleteQ(qid) {
   // add qid with corrent format above
 }
 
-class Create extends Component {
+class Edit extends Component {
   static get NAME() {
-    return 'Create';
+    return 'Edit';
   }
 
   static get contextTypes() {
@@ -81,7 +81,7 @@ class Create extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      items: (context.data[Create.NAME] || []),
+      items: (context.data[Edit.NAME] || []),
       presentationID: 0,
       userID: 22,
       title: '',
@@ -198,4 +198,4 @@ class Create extends Component {
   }
 }
 
-export default Create;
+export default Edit;

@@ -3,9 +3,10 @@ import Component from 'inferno-component';
 import ViewPpt from './ViewPpt.jsx';
 import propTypes from 'proptypes';
 Inferno.PropTypes = propTypes;
+var dbURL = 'http://localhost:5000';
 
 function getPpts(userID) {
-  return fetch('http://localhost:5000/pByU/'+userID,{
+  return fetch(dbURL + '/pByU/'+userID,{
     method: 'GET',
     mode: 'CORS',
     headers: {'Content-Type': 'application/JSON'},
@@ -13,7 +14,7 @@ function getPpts(userID) {
 }
 
 function deletePpt(pid) {
-  return fetch('http://localhost:5000/UPDATEHERE',{
+  return fetch(dbURL + '/UPDATEHERE',{
     method: 'DELETE',
     mode: 'CORS',
     headers: {'Content-Type': 'application/JSON'},
@@ -67,8 +68,8 @@ class ViewPresentations extends Component {
   render() {
     return (
       <div className="pptcontainer">
-      <p className="presentation">&nbsp;View Presentations:</p>
       <div className="viewContainer">
+      <p className="presentation">View Presentations</p>
         {this.state.ppts.map((ppt, index) => {
             return (
               <ViewPpt ppt={ppt} key={index} delete={this.deletePpt} />
