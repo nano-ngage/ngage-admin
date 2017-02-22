@@ -316,6 +316,13 @@ input[type=checkbox] {
   color:#ffffff;
   text-decoration: none;
 }
+.correct {
+  display: flex;
+  font-size: 1.3rem;
+  font-family: Arial, Helvetica, sans-serif;
+  color:#ffffff;
+  text-decoration: none;
+}
 .action {
   display: flex;
   font-size: 1.5rem;
