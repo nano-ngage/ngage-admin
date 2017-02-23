@@ -2,6 +2,19 @@
 body {
   background-color: #ffffff;
 }
+.welcome{
+  display: flex;
+  flex-basis: 70vmin;
+  height: 90vh;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 10rem;
+  font-weight: 600;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #288a2b;
+}
 .pptcontainer {
   margin: 15vmin 20vmin;
 }
@@ -66,7 +79,7 @@ body {
   font-size: 1.8rem;
   font-weight: 600;
   font-family: Arial, Helvetica, sans-serif;
-  color: #000000;
+  color: #5c5c5c;
 }
 .input { 
   display: flex;
@@ -79,7 +92,7 @@ body {
   margin-top: 40px;
   margin-bottom: 30px;
   border: none;
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid #5c5c5c;
   text-align: center;
 }
 .qinput { 
@@ -92,7 +105,7 @@ body {
   margin-top: 23px;
   margin-bottom: 10px;
   border: none;
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid #5c5c5c;
   text-align: center;
   width: 65vw;
 }
@@ -230,7 +243,7 @@ body {
 .viewAnswers {
   display: flex;
   height: 10vh;
-  width: 74.6vw;
+  width: 74.7vw;
   background-color: #ffffff;
   margin: -3vmin 5vmin 2vmin 6vmin;
   border-radius: 5px;
@@ -300,7 +313,7 @@ body {
   /*flex-basis: 250px;*/
   height: 10vh;
   width: 75vw;
-  background-color: #1f5768;
+  background-color: #2f4961;
   box-shadow: 5px 5px 5px 0 rgba(230,230,230,2);
   margin: 3vmin 10vmin 3vmin 10vmin;
   border-radius: 5px;
@@ -309,7 +322,7 @@ body {
   align-items: center;
 }
 .viewPpt:hover {
-  background-color: #1f6e8f;
+  background-color: #3E607F;
 }
 .title {
   display: flex;
@@ -349,7 +362,7 @@ body {
   padding: 4px 8px;
   margin: 15px;
   border: none;
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid #5c5c5c;
   text-align: center;
   width: 52vw;
 }
