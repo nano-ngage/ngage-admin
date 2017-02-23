@@ -6,7 +6,6 @@ import propTypes from 'proptypes';
 Inferno.PropTypes = propTypes;
 
 // create edit Q as seperate everything...
-// check most recent presentationID for #Qs before creating new pid
 
 var dbURL = 'http://localhost:5000';
 
@@ -112,14 +111,12 @@ class Create extends Component {
   }
 
   componentDidMount() {
-    // eventually use get request to fetch all Q's associated with ppt and set state for edit ppt
     if (this.props.params.id > 0) {
       this.setState({presentationID: this.props.params.id});
       getQs(this.props.params.id).then(data => {
         this.setState({questions: data});
       }).catch(error => {});
     } else {
-      // check user's last ppt questions length for 0
       initPid(this.state.userID)
         .then(data => {this.setState({presentationID: data.presentationID})});  
     }
