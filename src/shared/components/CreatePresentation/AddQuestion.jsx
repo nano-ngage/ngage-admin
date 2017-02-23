@@ -83,15 +83,15 @@ class AddQuestion extends Component {
         answers = this.state.answers;
       } else {
         var types = {
-          3: [{answer: '🙁', correct: 'true'}, {answer: '😐', correct: 'true'}, {answer: '🙂', correct: 'true'}],
-          4: [{answer: '👍', correct: 'true'}, {answer: '👎', correct: 'true'}],
-          5: [{answer: '⭐', correct: 'true'}, {answer: '⭐⭐', correct: 'true'}, {answer: '⭐⭐⭐', correct: 'true'}, {answer: '⭐⭐⭐⭐', correct: 'true'}, {answer: '⭐⭐⭐⭐⭐', correct: 'true'}]
+          3: [{answer: '🙁', correct: 'false'}, {answer: '😐', correct: 'false'}, {answer: '🙂', correct: 'false'}],
+          4: [{answer: '👍', correct: 'false'}, {answer: '👎', correct: 'false'}],
+          5: [{answer: '⭐', correct: 'false'}, {answer: '⭐⭐', correct: 'false'}, {answer: '⭐⭐⭐', correct: 'false'}, {answer: '⭐⭐⭐⭐', correct: 'false'}, {answer: '⭐⭐⭐⭐⭐', correct: 'false'}]
         };
         answers = types[this.props.type];
       }
-      this.props.addToViewQuestions(newQuestion, answers);
       this.setState({question: ''});
       this.setState({answers: []});
+      this.props.addToViewQuestions(newQuestion, answers);
     };
   }
 
