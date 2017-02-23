@@ -15,6 +15,6 @@ export default (
     <IndexRoute component={ Home } />
     <Route path="create" component={ CreatePresentation } />
     <Route path="view" component={ ViewPresentations } />
-    <Route path="edit/:id" component={ EditPresentation } />
+    <Route path="edit/:id/:title" component={ EditPresentation } />
   </Route>
 )
