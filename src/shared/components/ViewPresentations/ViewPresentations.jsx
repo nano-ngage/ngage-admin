@@ -23,6 +23,14 @@ function deletePpt(pid) {
   // add qid with corrent format above
 }
 
+function startPpt(pid, code) {
+  // return fetch(dbURL + '/pByU/'+userID,{
+  //   method: 'GET',
+  //   mode: 'CORS',
+  //   headers: {'Content-Type': 'application/JSON'},
+  //   }).then(data => data.json());
+}
+
 class ViewPresentations extends Component {
   static get NAME() {
     return 'ViewPresentations';
@@ -45,7 +53,7 @@ class ViewPresentations extends Component {
     };
 
     // revise userID after auth is enabled
-
+    this.generateRoomCode = this.generateRoomCode.bind(this);
     this.deletePpt = this.deletePpt.bind(this);
   }
 
@@ -65,6 +73,12 @@ class ViewPresentations extends Component {
     deletePpt(pid);
   }
 
+  generateRoomCode(pid) {
+    var length = 4;
+    var code = Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).slice(1);
+    startPpt(pid, code);
+  }
+
   render() {
     return (
       <div className="pptcontainer">
@@ -72,7 +86,7 @@ class ViewPresentations extends Component {
       <p className="presentation">View Presentations</p>
         {this.state.ppts.map((ppt, index) => {
             return (
-              <ViewPpt ppt={ppt} key={index} delete={this.deletePpt} />
+              <ViewPpt ppt={ppt} key={index} delete={this.deletePpt} start={this.generateRoomCode} />
             )
           })
         }
