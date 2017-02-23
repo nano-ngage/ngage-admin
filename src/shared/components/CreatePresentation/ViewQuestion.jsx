@@ -28,7 +28,8 @@ class ViewQuestion extends Component {
     return (
       <div className="viewQuestion">
           <span className="title">#{this.props.index + 1} - {this.props.question.question}</span>
-          <span className="actions"><span className="action">Edit</span>&nbsp;|&nbsp;
+            <span className="actions"><span className="action">View Answers</span>&nbsp;|&nbsp;
+            <span className="action">Edit</span>&nbsp;|&nbsp;
             <span className="action" onClick={() => {this.props.delete(this.props.question.questionID)}}>Delete</span></span>
       </div>
     );

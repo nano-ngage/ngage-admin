@@ -29,11 +29,11 @@ class AddAnswer extends Component {
 
   render() {
     return (
-      <div className="viewQuestion">
+      <div className="viewAnswer">
           <input type="text" className="ainput" placeholder="Answer goes here" value={this.state.answer} onInput={this.handleAnswer} required />
+          <span className="actions">
           <input type="checkbox" className="check" onClick={this.handleCorrect} checked={this.state.checked} />
           <span className="correct">Correct?</span>
-          <span className="actions">
             <span className="delete" onClick={() => {this.props.delete(this.props.index)}}>⨂</span>
           </span>
       </div>

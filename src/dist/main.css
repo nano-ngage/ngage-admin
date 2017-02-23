@@ -202,10 +202,10 @@ body {
 .viewQuestion {
   display: flex;
   height: 10vh;
-  width: 70vw;
+  width: 75vw;
   background-color: #288a2b;
   box-shadow: 5px 5px 5px 0 rgba(230,230,230,2);
-  margin: 2vmin 11vmin 2vmin 12vmin;
+  margin: 2vmin 5vmin 2vmin 6vmin;
   border-radius: 5px;
   text-decoration: none;
   justify-content: space-between;
@@ -214,38 +214,14 @@ body {
 .viewAnswer {
   display: flex;
   height: 10vh;
-  width: 75vw;
+  width: 66vw;
   background-color: #288a2b;
   box-shadow: 5px 5px 5px 0 rgba(230,230,230,2);
-  margin: 2vmin 10vmin 2vmin 10vmin;
+  margin: 2vmin 15vmin;
   border-radius: 5px;
   text-decoration: none;
   justify-content: center;
   align-items: center;
-}
-.ainput { 
-  display: flex;
-  font-size: 1.5rem;
-  font-family: Arial, Helvetica, sans-serif;
-  color: #000000;
-  background-color: #ffffff;  
-  padding: 4px 8px;
-  margin: 15px;
-  border: none;
-  border-bottom: 2px solid black;
-  text-align: center;
-  width: 45vw;
-}
-input[type=checkbox] {
-  content: "\2713";
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, .2);
-  font-size: 3rem;
-  color: #000000;
-  text-align: center;
-  width: 20px !important; /*Desired width*/
-  height: 28px !important; /*Desired height*/
-  cursor: pointer;
-  margin: 0;
 }
 .title {
   display: flex;
@@ -319,9 +295,48 @@ input[type=checkbox] {
 .correct {
   display: flex;
   font-size: 1.3rem;
+  padding-top: 5px;
+  font-family: Arial, Helvetica, sans-serif;
+  color:#ffffff;
+  margin-right: 25px;
+  text-decoration: none;
+}
+.delete {
+  display: flex;
+  font-size: 1.8rem;
   font-family: Arial, Helvetica, sans-serif;
   color:#ffffff;
   text-decoration: none;
+  cursor: pointer;
+  margin-right: 10px;
+}
+.delete:hover {
+  color: #000000;
+}
+.ainput { 
+  display: flex;
+  font-size: 1.5rem;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #000000;
+  background-color: #ffffff;  
+  padding: 4px 8px;
+  margin: 15px;
+  border: none;
+  border-bottom: 2px solid black;
+  text-align: center;
+  width: 52vw;
+}
+input[type=checkbox] {
+  content: "\2713";
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, .2);
+  font-size: 3rem;
+  color: #000000;
+  text-align: center;
+  width: 20px !important; /*Desired width*/
+  height: 28px !important; /*Desired height*/
+  cursor: pointer;
+  margin: 0;
+  margin-top: 3px;
 }
 .action {
   display: flex;
@@ -340,18 +355,6 @@ input[type=checkbox] {
   font-family: Arial, Helvetica, sans-serif;
   color:#ffffff;
   text-decoration: none;
-}
-.delete {
-  display: flex;
-  font-size: 1.8rem;
-  font-family: Arial, Helvetica, sans-serif;
-  color:#ffffff;
-  text-decoration: none;
-  cursor: pointer;
-  margin-right: 10px;
-}
-.delete:hover {
-  color: #000000;
 }
 /*Nav*/
 body, p, h1, h2, h3, h4, ul, li {
