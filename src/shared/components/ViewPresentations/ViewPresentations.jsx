@@ -1,12 +1,13 @@
 import Inferno from 'inferno';
 import Component from 'inferno-component';
+import { Link } from 'inferno-router';
 import ViewPpt from './ViewPpt.jsx';
 import propTypes from 'proptypes';
 Inferno.PropTypes = propTypes;
 var dbURL = 'http://localhost:5000';
 
 function getPpts(userID) {
-  return fetch(dbURL + '/pByU/'+userID,{
+  return fetch(dbURL + '/pByU/'+ userID,{
     method: 'GET',
     mode: 'CORS',
     headers: {'Content-Type': 'application/JSON'},
@@ -14,21 +15,20 @@ function getPpts(userID) {
 }
 
 function deletePpt(pid) {
-  return fetch(dbURL + '/UPDATEHERE',{
+  return fetch(dbURL + '/p/' + pid,{
     method: 'DELETE',
     mode: 'CORS',
-    headers: {'Content-Type': 'application/JSON'},
-    body: JSON.stringify({'UPDATEHERE': 'FOR PID'})
-    }).then(data => data.json());
-  // add qid with corrent format above
+    headers: {'Content-Type': 'application/JSON'}
+    }).then(data => data.json()).catch();
 }
 
 function startPpt(pid, code) {
-  // return fetch(dbURL + '/pByU/'+userID,{
-  //   method: 'GET',
-  //   mode: 'CORS',
-  //   headers: {'Content-Type': 'application/JSON'},
-  //   }).then(data => data.json());
+  return fetch(dbURL + '/sByPS',{
+    method: 'POST',
+    mode: 'CORS',
+    headers: {'Content-Type': 'application/JSON'},
+    body: JSON.stringify({'presentationID': pid, 'socket': code})
+    }).then(data => data.json());
 }
 
 class ViewPresentations extends Component {
@@ -48,7 +48,7 @@ class ViewPresentations extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      userID: 22,
+      userID: 1,
       ppts: []
     };
 
@@ -74,9 +74,11 @@ class ViewPresentations extends Component {
   }
 
   generateRoomCode(pid) {
-    var length = 4;
+    var length = 6;
     var code = Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).slice(1);
-    startPpt(pid, code);
+    startPpt(pid, code).then(data => {
+      window.open('http://104.131.147.199:3000/presentation/' + data.socket);
+    });
   }
 
   render() {
@@ -84,11 +86,13 @@ class ViewPresentations extends Component {
       <div className="pptcontainer">
       <div className="viewContainer">
       <p className="presentation">View Presentations</p>
-        {this.state.ppts.map((ppt, index) => {
+        {this.state.ppts.length > 0 ? (this.state.ppts.map((ppt, index) => {
             return (
               <ViewPpt ppt={ppt} key={index} delete={this.deletePpt} start={this.generateRoomCode} />
             )
-          })
+          })) : (<div className="emptyPpt">
+        Click&nbsp;<Link to="/create" className="emptyPptText">here</Link>
+        &nbsp;to create a presentation!</div>)
         }
       </div>
       </div>

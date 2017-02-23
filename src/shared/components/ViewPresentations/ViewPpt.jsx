@@ -11,9 +11,9 @@ class ViewPpt extends Component {
     return (
       <div>
         <div className="viewPpt">
-          <span className="title">PID: {this.props.ppt.presentationID} (todo: change to title)</span>
+          <span className="title">{this.props.ppt.title}</span>
             <span className="actions"><span className="action" onClick={() => {this.props.start(this.props.ppt.presentationID)}}>Start</span>&nbsp;|&nbsp;
-            <Link to={"/edit/" + this.props.ppt.presentationID} className="action">Edit</Link>&nbsp;|&nbsp;
+            <Link to={"/edit/" + this.props.ppt.presentationID + '/' + this.props.ppt.title} className="action">Edit</Link>&nbsp;|&nbsp;
             <span className="action" onClick={() => {this.props.delete(this.props.ppt.presentationID)}}>Delete</span></span>
         </div>
       </div>

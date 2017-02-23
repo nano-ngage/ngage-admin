@@ -3,7 +3,7 @@ import Component from 'inferno-component';
 import propTypes from 'proptypes';
 Inferno.PropTypes = propTypes;
 
-var dbURL = 'http://localhost:5000';
+var dbURL = 'http://localhost:5600';
 
 function getAs(qid) {
   return fetch(dbURL + '/aByQ/'+qid,{

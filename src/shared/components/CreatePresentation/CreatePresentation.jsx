@@ -10,11 +10,11 @@ Inferno.PropTypes = propTypes;
 var dbURL = 'http://localhost:5000';
 
 function initPid(userID) {
-  return fetch(dbURL + '/postPByU',{
+  return fetch(dbURL + '/pByU',{
     method: 'POST',
     mode: 'CORS',
     headers: {'Content-Type': 'application/JSON'},
-    body: JSON.stringify({'userID': userID})
+    body: JSON.stringify({'userID': userID, 'title': 'New Presentation'})
     }).then(data => data.json());
 }
 
@@ -23,17 +23,16 @@ function getQs(pid) {
     method: 'GET',
     mode: 'CORS',
     headers: {'Content-Type': 'application/JSON'},
-    }).then(data => data.json());
+    }).then(data => data.json()).catch();
 }
 
 function updateTitle(pid, title) {
-  return fetch(dbURL + '/UPDATEHERE',{
-    method: 'POST',
+  return fetch(dbURL + '/p/' + pid,{
+    method: 'PUT',
     mode: 'CORS',
     headers: {'Content-Type': 'application/JSON'},
-    body: JSON.stringify({'UPDATEHERE': 'FOR PID AND TITLE'})
+    body: JSON.stringify({'title': title})
     }).then(data => data.json());
-  // update above once title is added to presentation schema
 }
 
 function postQ(pid, type, question) {
@@ -55,23 +54,21 @@ function postAnswers(qid, answers) {
 }
 
 function editQ(qid) {
-  return fetch(dbURL + '/UPDATEHERE',{
+  return fetch(dbURL + '/q/' + qid,{
     method: 'PUT',
     mode: 'CORS',
     headers: {'Content-Type': 'application/JSON'},
     body: JSON.stringify({'UPDATEHERE': 'FOR PID, QID, QUESTION, TYPE'})
     }).then(data => data.json());
-  // add qid with corrent format above
+  // add body with corrent format above
 }
 
 function deleteQ(qid) {
-  return fetch(dbURL + '/UPDATEHERE',{
+  return fetch(dbURL + '/q/'+ qid,{
     method: 'DELETE',
     mode: 'CORS',
-    headers: {'Content-Type': 'application/JSON'},
-    body: JSON.stringify({'UPDATEHERE': 'FOR QID'})
-    }).then(data => data.json());
-  // add qid with corrent format above
+    headers: {'Content-Type': 'application/JSON'}
+    }).then(data => data.json()).catch();
 }
 
 class Create extends Component {
@@ -93,7 +90,7 @@ class Create extends Component {
     this.state = {
       items: (context.data[Create.NAME] || []),
       presentationID: 0,
-      userID: 22,
+      userID: 1,
       title: '',
       type: 1,
       typeDescription: 'Multiple Choice',
@@ -113,6 +110,7 @@ class Create extends Component {
   componentDidMount() {
     if (this.props.params.id > 0) {
       this.setState({presentationID: this.props.params.id});
+      this.setState({title: this.props.params.title});
       getQs(this.props.params.id).then(data => {
         this.setState({questions: data});
       }).catch(error => {});
@@ -142,7 +140,7 @@ class Create extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    initPid(this.state.presentationID, this.state.title);
+    updateTitle(this.state.presentationID, this.state.title);
   }
 
   deleteQuestion(qid) {
@@ -160,10 +158,10 @@ class Create extends Component {
     postQ(this.state.presentationID, this.state.type, newQuestion)
       .then(data => {
         var questions = this.state.questions;
-        questions.push({question: newQuestion, qid: data.questionID, questionID: data.questionID});
+        questions.push({question: newQuestion, questionID: data.questionID});
         this.setState({questions: questions});
-      });
-    postAnswers(data.questionID, answers);
+        postAnswers(data.questionID, answers);
+      }).catch();
   }
 
   render() {
