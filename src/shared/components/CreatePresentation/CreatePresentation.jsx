@@ -163,7 +163,7 @@ class Create extends Component {
     postQ(this.state.presentationID, this.state.type, newQuestion)
       .then(data => {
         var questions = this.state.questions;
-        questions.push({question: newQuestion, qid: data.questionID});
+        questions.push({question: newQuestion, qid: data.questionID, questionID: data.questionID});
         this.setState({questions: questions});
       });
     postAnswers(data.questionID, answers);
