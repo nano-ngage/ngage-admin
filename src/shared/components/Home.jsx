@@ -64,14 +64,11 @@ export default class Home extends Component {
 
   render() {
     return (
-      <section>
-        <header>
-          <h3>Welcome to the ngage home page!</h3>
-        </header>
-        <section>
-          <List handleQuestionClick={this.handleQuestionClick} items={this.state.items} itemType={Question}/>
-        </section>
-      </section>
+      <div className="welcome">
+      <div className="pptcontainer">
+        Welcome to nGage!
+      </div>
+      </div>
     );
   }
 
