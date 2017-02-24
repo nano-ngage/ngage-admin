@@ -1,5 +1,6 @@
 import Inferno from 'inferno';
 import Component from 'inferno-component';
+
 import Nav from './common/Nav.jsx';
 
 
@@ -7,26 +8,30 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userID: 0
+      user: null,
     };
+
+    this.handleUser = this.handleUser.bind(this);
   }
 
-  componentDidMount() {
-    //  FETCH USER INFORMATION
-    // fetch('/item-names').then((data) => {
-    //   this.setState({
-    //     data
-    //   });
-    // });
+  handleUser(user) {
+    this.setState({
+      user: user
+    })
   }
 
   render() {
+    // This is how you pass down props to children using Inferno Router
+    const childWithProps = Inferno.cloneVNode(this.props.children, {
+      handleUser: this.handleUser,
+      user: this.state.user
+    });
     return (
       <div id="app">
         <h1>ngage</h1>
         <hr />
-        <Nav />
-        {this.props.children}
+        <Nav user={this.state.user}/>
+        {childWithProps}
       </div>
     );
   }
