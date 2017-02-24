@@ -41,7 +41,9 @@ router.get('*', (req, res) => {
     .then((values) => {
       const data = prepareData(values, components);
       const html = render(renderProps, data);
-
+      //Add environment variables for deployment
+      data.DBIP = process.env.DBIP || 'localhost';
+      data.DBPORT = process.env.DBPORT || '5000';
       res.render('index', {
         content: html,
         context: JSON.stringify(data)
@@ -54,8 +56,8 @@ router.get('*', (req, res) => {
 
 app.use(router);
 
-app.listen(3000, () => {
-  console.log('Listening on port 3000');
+app.listen(3001, () => {
+  console.log('Listening on port 3001');
 });
 
 module.exports = app;

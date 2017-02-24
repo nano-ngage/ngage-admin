@@ -7,8 +7,8 @@ Inferno.PropTypes = propTypes;
 
 // create edit Q as seperate everything...
 
-var dbURL = 'http://localhost:5000';
-
+//var dbURL = `http://${window.APP_STATE.DBIP}:${window.APP_STATE.DBPORT}`;
+var dbURL = '';
 function initPid(userID) {
   return fetch(dbURL + '/pByU',{
     method: 'POST',
@@ -106,6 +106,7 @@ class Edit extends Component {
       qid: 0,
       questions: []
     };
+    dbURL = `http://${context.data.DBIP}:${context.data.DBPORT}`;
 
     // revise userID after auth is enabled
 

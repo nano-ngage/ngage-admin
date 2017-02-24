@@ -3,7 +3,8 @@ import Component from 'inferno-component';
 import propTypes from 'proptypes';
 Inferno.PropTypes = propTypes;
 
-var dbURL = 'http://localhost:5600';
+//var dbURL = `http://${window.APP_STATE.DBIP}:${window.APP_STATE.DBPORT}`;
+var dbURL = '';
 
 function getAs(qid) {
   return fetch(dbURL + '/aByQ/'+qid,{
@@ -33,6 +34,7 @@ class ViewQuestion extends Component {
       items: (context.data[ViewQuestion.NAME] || []),
       answers: []
     };
+    dbURL = `http://${context.data.DBIP}:${context.data.DBPORT}`;
 
     this.viewAnswers = this.viewAnswers.bind(this);
   }
