@@ -8,7 +8,7 @@ echo "pulling latest version of the code"
 ssh $DEPLOY_USER@$DEPLOY_HOST 'docker pull nanongage/ngage-admin:latest'
 
 echo "starting the new version"
-ssh $DEPLOY_USER@$DEPLOY_HOST 'docker run -d --restart=always --name ngage-admin -p 49016:5000 nanongage/ngage-admin:latest'
+ssh $DEPLOY_USER@$DEPLOY_HOST 'docker run -d --restart=always --link ngage-db:ngagedb -e DBIP="ngagedb" --name ngage-admin -p 3001:3001 nanongage/ngage-admin:latest'
 
 echo "success!"
 
