@@ -4,8 +4,9 @@ import { Link } from 'inferno-router';
 import ViewPpt from './ViewPpt.jsx';
 import propTypes from 'proptypes';
 Inferno.PropTypes = propTypes;
-var dbURL = 'http://localhost:5000';
 
+//var dbURL = `http://${window.APP_STATE.DBIP}:${window.APP_STATE.DBPORT}`;
+var dbURL = '';
 function getPpts(userID) {
   return fetch(dbURL + '/pByU/'+ userID,{
     method: 'GET',
@@ -51,6 +52,7 @@ class ViewPresentations extends Component {
       userID: 1,
       ppts: []
     };
+    dbURL = `http://${context.data.DBIP}:${context.data.DBPORT}`;
 
     // revise userID after auth is enabled
     this.generateRoomCode = this.generateRoomCode.bind(this);
