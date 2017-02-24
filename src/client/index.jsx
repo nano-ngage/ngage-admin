@@ -6,11 +6,12 @@ import routes from '../shared/routes.jsx';
 
 import ContextWrapper from '../shared/components/common/ContextWrapper.jsx';
 
-const history = createBrowserHistory();
+const browserHistory = createBrowserHistory();
+window.browserHistory = browserHistory;
 
 Inferno.render((
   <ContextWrapper data={window.APP_STATE || {}}>
-    <Router history={history}>
+    <Router history={browserHistory}>
       {routes}
     </Router>
   </ContextWrapper>
