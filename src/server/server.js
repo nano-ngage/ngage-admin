@@ -129,7 +129,7 @@ router.get('/login', (req, res) => {
         "client_id": AUTH0_CLIENT_ID,
         "client_secret": AUTH0_CLIENT_SECRET,
         "code": code,
-        "redirect_uri": "http://127.0.0.1:3001/login"
+        "redirect_uri": "http://104.131.147.199:3001/login"
       }),
       json: true
     })
