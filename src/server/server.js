@@ -5,6 +5,9 @@ import cookieParser from 'cookie-parser';
 import path from 'path';
 import Promise from 'bluebird';
 
+// Secret info
+import { AUTH0_DOMAIN, AUTH0_CLIENT_ID, AUTH0_CLIENT_SECRET, SESSION_SECRET } from '../../secrets.js';
+
 // Use Redis as session storage
 import redis from 'redis';
 const redisStore = require('connect-redis')(session);
@@ -21,9 +24,9 @@ const app = express();
 // =====================================================
 // Sessions, Cookies, and Redis
 // =====================================================
-app.use(cookieParser('secret'));
+app.use(cookieParser(SESSION_SECRET));
 app.use(session({
-  secret: 'secret',
+  secret: SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
   store: new redisStore({
