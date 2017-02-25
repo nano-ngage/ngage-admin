@@ -3,6 +3,7 @@ import session from 'express-session';
 import exphbs from 'express-handlebars';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
+import fetch from 'fetch-everywhere';
 import path from 'path';
 import Promise from 'bluebird';
 
@@ -73,6 +74,23 @@ const router = express.Router();
 // Static Assets -- NOTE: Express Static doesn't work for this
 router.get('/dist/*', (req, res) => {
   res.sendFile(path.join(__dirname, '/../', req.url));
+})
+
+
+// Authentication Auth0 Middleware
+// This gets applied to all other routes except for homepage & initsession
+router.use((req, res, next) => {
+  if (req.url === '/' || req.url === '/initsession' || req.session) {
+    next();
+  } else {
+    const url = `https://${AUTH0_DOMAIN}/authorize` +
+                '?response_type=code' + `&client_id=${AUTH0_CLIENT_ID}` +
+                '&scope=openid%20given_name%20family_name%20email';
+    fetch(url)
+      .then(response => response.text())
+      .then(html => res.send(html))
+      .catch(err => { console.error(err); });
+  }
 })
 
 // Universal Routing with Inferno-Router
