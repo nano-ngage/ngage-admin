@@ -2,8 +2,6 @@ import Inferno from 'inferno';
 import Component from 'inferno-component';
 import AddQuestion from './AddQuestion.jsx';
 import ViewQuestion from './ViewQuestion.jsx';
-import propTypes from 'proptypes';
-Inferno.PropTypes = propTypes;
 
 // create edit Q as seperate everything...
 
@@ -72,25 +70,11 @@ function deleteQ(qid) {
 }
 
 class Create extends Component {
-  static get NAME() {
-    return 'Create';
-  }
-
-  static get contextTypes() {
-    return {data: inferno.PropTypes.object};
-  }
-
-  static requestData(params, domain='') {
-    return initPid();
-    // need args?
-  }
-
   constructor(props, context) {
     super(props, context);
     this.state = {
-      items: (context.data[Create.NAME] || []),
       presentationID: 0,
-      userID: 1,
+      userID: this.props.user.userID,
       title: '',
       type: 1,
       typeDescription: 'Multiple Choice',
@@ -98,8 +82,6 @@ class Create extends Component {
       questions: []
     };
     dbURL = `http://${context.data.DBIP}:${context.data.DBPORT}`;
-
-    // revise userID after auth is enabled
 
     this.handleTitle = this.handleTitle.bind(this);
     this.handleType = this.handleType.bind(this);
@@ -117,7 +99,7 @@ class Create extends Component {
       }).catch(error => {});
     } else {
       initPid(this.state.userID)
-        .then(data => {this.setState({presentationID: data.presentationID})});  
+        .then(data => {this.setState({presentationID: data.presentationID})});
     }
   }
 
