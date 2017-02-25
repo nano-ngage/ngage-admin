@@ -39,8 +39,8 @@ describe('server', function() {
     });
   });
 
-  it('should respond to GET requests for /create with a 200 status code', function(done) {
-    request('http://127.0.0.1:4570/create', function(error, response, body) {
+  it('should respond to GET requests for /view with a 200 status code', function(done) {
+    request('http://127.0.0.1:4570/view', function(error, response, body) {
       expect(response.statusCode).to.equal(200);
       done();
     });
@@ -50,14 +50,53 @@ describe('server', function() {
 // ----------Front-End Tests------------- //
 
 import Inferno from 'inferno';
-import { isClassVNode } from 'inferno-test-utils';
-var CreatePresentation = require('../src/shared/components/CreatePresentation.jsx');
+import { renderToString } from 'inferno-server';
+import { isFunctionalVNode, scryVNodesWithType } from 'inferno-test-utils';
+var AddAnswer = require('../src/shared/components/CreatePresentation/AddAnswer.jsx');
+var AddQuestion = require('../src/shared/components/CreatePresentation/AddQuestion.jsx');
+var CreatePresentation = require('../src/shared/components/CreatePresentation/CreatePresentation.jsx');
+var ViewQuestion = require('../src/shared/components/CreatePresentation/ViewQuestion.jsx');
+var ViewPresentations = require('../src/shared/components/ViewPresentations/ViewPresentations.jsx');
+var ViewPpt = require('../src/shared/components/ViewPresentations/ViewPpt.jsx');
+
+describe('AddAnswer', function() {
+    it('should be a functional-type VNode', () => {
+    const node = <AddAnswer presentationID="4" addToViewQuestions={() => {}} type="4" length="4" />;
+    expect(isFunctionalVNode(node, 'div')).to.equal(true);
+  });
+});
+
+describe('AddQuestion', function() {
+    it('should be a functional-type VNode', () => {
+    const node = <AddQuestion presentationID="4" addToViewQuestions={() => {}} type="4" length="4" />;
+    expect(isFunctionalVNode(node, 'div')).to.equal(true);
+  });
+});
+
+describe('ViewQuestion', function() {
+    it('should be a functional-type VNode', () => {
+    const node = <ViewQuestion presentationID="4" addToViewQuestions={() => {}} type="4" length="4" />;
+    expect(isFunctionalVNode(node, 'div')).to.equal(true);
+  });
+});
 
 describe('CreatePresentation', function() {
+  it('should be a functional-type VNode', () => {
+    const node = <CreatePresentation/>;
+    expect(isFunctionalVNode(node)).to.equal(true);
+  });
+});
 
-  var create;
+describe('ViewPresentations', function() {
+  it('should be a functional-type VNode', () => {
+    const node = <ViewPresentations userID="2" />;
+    expect(isFunctionalVNode(node)).to.equal(true);
+  });
+});
 
-  beforeEach(function() {
-    // console.log(isClassVNode(<CreatePresentation />));
+describe('ViewPpt', function() {
+  it('should be a functional-type VNode', () => {
+    const node = <ViewPpt presentationID="2" />;
+    expect(isFunctionalVNode(node)).to.equal(true);
   });
 });
