@@ -4,3 +4,7 @@ node_modules/
 
 # Compiled Files
 src/dist/js/
+
+# Secret Files
+secrets.js
+export.sh
