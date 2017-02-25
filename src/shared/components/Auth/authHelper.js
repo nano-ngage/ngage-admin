@@ -3,5 +3,5 @@ export function getLogin(login){
                headers: {"Content-Type": "application/json"},
                mode: 'cors',
                body: JSON.stringify(login) };
-  return fetch('http://104.131.147.199:5000/login', myInit).then(response => response.json())
+  return fetch('http://104.131.147.199:5000/login', myInit).then(function (response) {return response.json()})
 }
