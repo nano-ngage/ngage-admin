@@ -1,6 +1,6 @@
 import express from 'express';
+import exphbs from 'express-handlebars';
 import path from 'path';
-import handlebars from 'express-handlebars';
 import Promise from 'bluebird';
 
 // Inferno Imports
@@ -11,14 +11,19 @@ import { extractComponents, mapComponentsToPromises, prepareData, render } from 
 
 const app = express();
 
-// Template Engine with handlebars
-app.set('views', path.join(__dirname, 'views'));
-app.engine('hbs', handlebars({
-  extname: 'hbs',
-  defaultLayout: 'main.hbs',
+// Templating Engine with handlebars
+const hbs = exphbs.create({
+  helpers: {
+    json: context => JSON.stringify(context)
+  },
+  defaultLayout: 'main',
+  extname: '.hbs',
   layoutsDir: path.join(__dirname, 'views', 'layouts')
-}));
+})
+
+app.engine('hbs', hbs.engine)
 app.set('view engine', 'hbs');
+app.set('views', path.join(__dirname, 'views'));
 
 const router = express.Router();
 
@@ -38,7 +43,7 @@ router.get('*', (req, res) => {
   const { promises, components } = mapComponentsToPromises(unfilteredComponents, renderProps.matched.params);
 
   Promise.all(promises)
-    .then((values) => {
+    .then(values => {
       const data = prepareData(values, components);
       const html = render(renderProps, data);
       //Add environment variables for deployment
@@ -46,10 +51,16 @@ router.get('*', (req, res) => {
       data.DBPORT = process.env.DBPORT || '5000';
       res.render('index', {
         content: html,
-        context: JSON.stringify(data)
+        context: JSON.stringify(data),
+        id_token: JSON.stringify(req.session.id_token),
+        profile: JSON.stringify(req.session.profile),
+        user: JSON.stringify(req.session.key)
       });
+
+      req.session.id_token = undefined;
+      req.session.profile = undefined;
     })
-    .catch((err) => {
+    .catch(err => {
       res.status(500).send(err);
     });
 });
