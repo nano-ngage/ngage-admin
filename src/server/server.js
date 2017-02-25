@@ -180,6 +180,13 @@ router.use((req, res, next) => {
 
 // Universal Routing with Inferno-Router
 router.get('*', (req, res) => {
+
+  // failsafe redirect for /creat and /view for now
+  // until we figure out why /create and /view break
+  // in Inferno.renderToString
+  if (req.url === '/create' || req.url === '/view') {
+    res.redirect('/')
+  }
   const renderProps = match(routes, req.originalUrl)
   if (renderProps.redirect) {
     return res.redirect(renderProps.redirect);
