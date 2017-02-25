@@ -1,5 +1,14 @@
 <div id="inferno-view" data-ui-role="content">{{{content}}}</div>
 <script>
   window.APP_STATE = {{{context}}};
+  {{#if id_token}}
+  window.localStorage.setItem('id_token', {{{id_token}}});
+  {{/if}}
+  {{#if profile}}
+  window.localStorage.setItem('profile', {{{json profile}}});
+  {{/if}}
+  {{#if user}}
+  window.localStorage.setItem('user', {{{json user}}})
+  {{/if}}
 </script>
 <script src="/dist/js/bundle.app.js"></script>
