@@ -79,6 +79,20 @@ router.get('/dist/*', (req, res) => {
 })
 
 
+// Endpoint for client-side Logout.jsx to kill the session
+router.post('/logout', (req, res) => {
+  req.session = undefined;
+  res.send('logged out!');
+})
+
+// Edgecase: if a user navigates directly to /logout in the searchbar
+// it won't actually log the user out (just redirect to / for now)
+// TODO: Need to find a way to delete localStorage items (user, id_token, profile)
+// when navigting here to truly log out
+router.get('/logout', (req, res) => {
+  res.redirect('/');
+});
+
 // This is the endpoint that the Auth0 middleware (defined below)
 // will redirect to with necessary params (code & state)
 // to finish the server-side Auth0 authentication flow
