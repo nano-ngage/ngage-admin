@@ -9,9 +9,11 @@ export default class App extends Component {
     super(props);
     this.state = {
       user: null,
+      ppts: []
     };
 
     this.handleUser = this.handleUser.bind(this);
+    this.handlePresentations = this.handlePresentations.bind(this);
   }
 
   handleUser(user) {
@@ -20,11 +22,19 @@ export default class App extends Component {
     })
   }
 
+  handlePresentations(ppts) {
+    this.setState({
+      ppts: ppts
+    })
+  }
+
   render() {
     // This is how you pass down props to children using Inferno Router
     const childWithProps = Inferno.cloneVNode(this.props.children, {
       handleUser: this.handleUser,
-      user: this.state.user
+      handlePresentations: this.handlePresentations,
+      user: this.state.user,
+      ppts: this.state.ppts
     });
     return (
       <div id="app">
