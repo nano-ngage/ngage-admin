@@ -5,6 +5,8 @@ import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import fetch from 'fetch-everywhere';
 import path from 'path';
+import querystring from 'querystring';
+import decode from 'jwt-decode';
 import Promise from 'bluebird';
 
 // Secret info
@@ -76,6 +78,56 @@ router.get('/dist/*', (req, res) => {
   res.sendFile(path.join(__dirname, '/../', req.url));
 })
 
+
+// This is the endpoint that the Auth0 middleware (defined below)
+// will redirect to with necessary params (code & state)
+// to finish the server-side Auth0 authentication flow
+router.get('/login', (req, res) => {
+
+  const queryParams = querystring.parse(req.url.split('?')[1]);;
+  const code = queryParams.code;
+
+  fetch(`https://${AUTH0_DOMAIN}/oauth/token`, {
+      method: 'POST',
+      headers: {"Content-Type": "application/json"},
+      mode: 'cors',
+      body: JSON.stringify({
+        "grant_type": "authorization_code",
+        "client_id": AUTH0_CLIENT_ID,
+        "client_secret": AUTH0_CLIENT_SECRET,
+        "code": code,
+        "redirect_uri": "http://127.0.0.1:3001/login"
+      }),
+      json: true
+    })
+    .then(response => response.json())
+    .then(token => {
+      const decoded = decode(JSON.stringify(token))
+      const profile = {
+        auth_id: decoded.sub,
+        given_name: decoded.given_name,
+        family_name: decoded.family_name,
+        type: 0
+      };
+      // store id_token & profile for later use in server-side rendering
+      req.session.id_token = token.id_token;
+      req.session.profile = profile;
+      return fetch('http://104.131.147.199:5000/login', {
+               method: 'POST',
+               headers: {"Content-Type": "application/json"},
+               mode: 'cors',
+               body: JSON.stringify(profile)
+             })
+             .then(response => response.json())
+             .catch(err => { console.error(err); })
+    })
+    .then(user => {
+      // storing user for later use in server-side rendering
+      req.session.key = user;
+      res.redirect('/')
+    })
+    .catch(err => console.error(err))
+});
 
 // Authentication Auth0 Middleware
 // This gets applied to all other routes except for homepage & initsession
