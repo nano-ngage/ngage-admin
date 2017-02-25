@@ -49,7 +49,7 @@ class ViewPresentations extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      userID: 1,
+      userID: this.props.user.userID,
       ppts: []
     };
     dbURL = `http://${context.data.DBIP}:${context.data.DBPORT}`;
@@ -61,7 +61,12 @@ class ViewPresentations extends Component {
 
   componentDidMount() {
    getPpts(this.state.userID)
-    .then(data => {this.setState({ppts: data})}).catch(error => {console.log('unknown error loading users data.. refresh')});
+    .then(data => {
+      this.setState({
+        ppts: data
+      });
+    })
+    .catch(error => {console.log('unknown error loading users data.. refresh')});
   }
 
   deletePpt(pid) {
