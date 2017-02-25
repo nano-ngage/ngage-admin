@@ -78,6 +78,25 @@ router.get('/dist/*', (req, res) => {
   res.sendFile(path.join(__dirname, '/../', req.url));
 })
 
+// Endpoint for Login.jsx to get the user
+router.post('/initsession', (req, res) => {
+  const auth_id = req.body.authID;
+  const user_id = req.body.userID;
+  fetch('http://104.131.147.199:5000/login', {
+           method: 'POST',
+           headers: {"Content-Type": "application/json"},
+           mode: 'cors',
+           body: JSON.stringify({
+             auth_id: auth_id
+           })
+        })
+    .then(response => response.json())
+    .then(user => {
+      res.send(user);
+    })
+    .catch(err => console.error('Not a valid user', err));
+
+});
 
 // Endpoint for client-side Logout.jsx to kill the session
 router.post('/logout', (req, res) => {
