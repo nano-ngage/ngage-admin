@@ -54,10 +54,14 @@ app.engine('hbs', hbs.engine)
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
 
+
+// =====================================================
+// Routing
+// =====================================================
 const router = express.Router();
 
-// Static Assets Here -- NOTE: Express Static doesn't work for this
-router.get('/dist/*', function (req, res){
+// Static Assets -- NOTE: Express Static doesn't work for this
+router.get('/dist/*', (req, res) => {
   res.sendFile(path.join(__dirname, '/../', req.url));
 })
 
