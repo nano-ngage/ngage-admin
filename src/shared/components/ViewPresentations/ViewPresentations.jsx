@@ -15,7 +15,7 @@ function getPpts(userID) {
     }).then(data => data.json());
 }
 
-function deletePpt(pid) {
+function dbDeletePpt(pid) {
   return fetch(dbURL + '/p/' + pid,{
     method: 'DELETE',
     mode: 'CORS',
@@ -49,8 +49,7 @@ class ViewPresentations extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      userID: this.props.user.userID,
-      ppts: []
+      ppts: this.props.ppts
     };
     dbURL = `http://${context.data.DBIP}:${context.data.DBPORT}`;
 
@@ -60,40 +59,42 @@ class ViewPresentations extends Component {
   }
 
   componentDidMount() {
-   getPpts(this.state.userID)
+    getPpts(this.props.user.userID)
     .then(data => {
-      this.setState({
-        ppts: data
-      });
+      if (data.length !== this.props.ppts.length) {
+        this.props.handlePresentations(data)
+      }
     })
     .catch(error => {console.log('unknown error loading users data.. refresh')});
+
   }
 
   deletePpt(pid) {
-    var ppts= [];
-    this.state.ppts.forEach((ppt, index) => {
+    var ppts = [];
+    this.props.ppts.forEach((ppt, index) => {
       if (ppt.presentationID !== pid) {
         ppts.push(ppt);
       }
     });
-    this.setState({ppts: ppts});
-    deletePpt(pid);
+    this.props.handlePresentations(ppts);
+    dbDeletePpt(pid);
   }
 
   generateRoomCode(pid) {
     var length = 6;
     var code = Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).slice(1);
     startPpt(pid, code).then(data => {
-      window.open('http://104.131.147.199:3000/presentation/' + data.socket);
+      window.location.replace('http://104.131.147.199:3000/presentation/' + data.socket);
     });
   }
 
   render() {
+    console.log('this.props.ppts', this.props.ppts)
     return (
       <div className="pptcontainer">
       <div className="viewContainer">
       <p className="presentation">View Presentations</p>
-        {this.state.ppts.length > 0 ? (this.state.ppts.map((ppt, index) => {
+        {this.props.ppts.length > 0 ? (this.props.ppts.map((ppt, index) => {
             return (
               <ViewPpt ppt={ppt} key={index} delete={this.deletePpt} start={this.generateRoomCode} />
             )
