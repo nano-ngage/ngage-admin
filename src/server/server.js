@@ -1,7 +1,14 @@
 import express from 'express';
+import session from 'express-session';
 import exphbs from 'express-handlebars';
+import cookieParser from 'cookie-parser';
 import path from 'path';
 import Promise from 'bluebird';
+
+// Use Redis as session storage
+import redis from 'redis';
+const redisStore = require('connect-redis')(session);
+const client = redis.createClient();
 
 // Inferno Imports
 import Inferno from 'inferno';
@@ -11,7 +18,29 @@ import { extractComponents, mapComponentsToPromises, prepareData, render } from 
 
 const app = express();
 
-// Templating Engine with handlebars
+// =====================================================
+// Sessions, Cookies, and Redis
+// =====================================================
+app.use(cookieParser('secret'));
+app.use(session({
+  secret: 'secret',
+  resave: false,
+  saveUninitialized: false,
+  store: new redisStore({
+    host: 'localhost',
+    port: 6379,
+    client: client,
+    ttl: 260
+  }),
+  cookie: {
+    maxAge: 14 * 24 * 60 * 60 * 1000,
+    httpOnly: true
+  }
+}));
+
+// =====================================================
+// Templating Enging with Handlebars
+// =====================================================
 const hbs = exphbs.create({
   helpers: {
     json: context => JSON.stringify(context)
