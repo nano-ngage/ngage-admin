@@ -1,6 +1,7 @@
 import express from 'express';
 import session from 'express-session';
 import exphbs from 'express-handlebars';
+import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import path from 'path';
 import Promise from 'bluebird';
@@ -20,6 +21,12 @@ import routes from '../shared/routes.jsx';
 import { extractComponents, mapComponentsToPromises, prepareData, render } from './lib/helpers';
 
 const app = express();
+
+// =====================================================
+// Body Parser Middleware
+// =====================================================
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // =====================================================
 // Sessions, Cookies, and Redis
