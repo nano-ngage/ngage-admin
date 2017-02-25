@@ -28,7 +28,8 @@
     "inferno-server": "1.2.2",
     "jwt-decode": "^2.1.0",
     "proptypes": "^0.14.4",
-    "redis": "^2.6.5"
+    "redis": "^2.6.5",
+    "request": "^2.79.0"
   },
   "devDependencies": {
     "babel-core": "^6.23.1",
