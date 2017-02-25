@@ -15,7 +15,7 @@ import { AUTH0_DOMAIN, AUTH0_CLIENT_ID, AUTH0_CLIENT_SECRET, SESSION_SECRET } fr
 // Use Redis as session storage
 import redis from 'redis';
 const redisStore = require('connect-redis')(session);
-const client = redis.createClient();
+// const client = redis.createClient();
 
 // Inferno Imports
 import Inferno from 'inferno';
@@ -39,12 +39,12 @@ app.use(session({
   secret: SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
-  store: new redisStore({
-    host: 'localhost',
-    port: 6379,
-    client: client,
-    ttl: 260
-  }),
+  // store: new redisStore({
+  //   host: 'localhost',
+  //   port: 6379,
+  //   client: client,
+  //   ttl: 260
+  // }),
   cookie: {
     maxAge: 14 * 24 * 60 * 60 * 1000,
     httpOnly: true
@@ -184,9 +184,9 @@ router.get('*', (req, res) => {
   // failsafe redirect for /creat and /view for now
   // until we figure out why /create and /view break
   // in Inferno.renderToString
-  if (req.url === '/create' || req.url === '/view') {
-    res.redirect('/')
-  }
+  // if (req.url === '/create' || req.url === '/view') {
+  //   res.redirect('/')
+  // }
   const renderProps = match(routes, req.originalUrl)
   if (renderProps.redirect) {
     return res.redirect(renderProps.redirect);
