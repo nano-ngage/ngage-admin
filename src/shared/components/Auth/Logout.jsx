@@ -14,7 +14,7 @@ export default class Logout extends Component {
     this.props.handleUser(null);
 
     // Post request to kill the session
-    fetch('http://127.0.0.1:3001/logout', {
+    fetch('http://104.131.147.199:3001/logout', {
       method: 'POST',
       headers: {"Content-Type": "application/json"},
       mode: 'cors',
