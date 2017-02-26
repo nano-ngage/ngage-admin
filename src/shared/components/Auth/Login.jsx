@@ -23,7 +23,7 @@ export default class Login extends Component {
     // a user login in the event someone tries to do a direct
     // post request to our /initsession with fake auth_id & user_id
     // (there's no way to get a specific users's user_id from our DB)
-    fetch('http://127.0.0.1:3001/initsession', {
+    fetch('http://104.131.147.199:3001/initsession', {
       method: 'POST',
       headers: {"Content-Type": "application/json"},
       mode: 'cors',

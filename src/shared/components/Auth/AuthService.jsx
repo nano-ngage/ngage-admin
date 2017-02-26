@@ -91,7 +91,7 @@ export default class AuthService extends EventEmitter {
     localStorage.removeItem('user');
     localStorage.removeItem('id_token');
     localStorage.removeItem('profile');
-    fetch('http://127.0.0.1:3001/login')
+    fetch('http://104.131.147.199:3001/login')
       .then(res => { console.log(res); })
       .catch(err => { console.error(err); });
   }
