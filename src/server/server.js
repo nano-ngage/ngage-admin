@@ -170,7 +170,8 @@ router.use((req, res, next) => {
   } else {
     const url = `https://${AUTH0_DOMAIN}/authorize` +
                 '?response_type=code' + `&client_id=${AUTH0_CLIENT_ID}` +
-                '&scope=openid%20given_name%20family_name%20email';
+                '&scope=openid%20given_name%20family_name%20email' +
+                '&redirect_uri=104.131.147.199:5000/login';
     fetch(url)
       .then(response => response.text())
       .then(html => res.send(html))
