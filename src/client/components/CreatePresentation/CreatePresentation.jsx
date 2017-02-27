@@ -4,8 +4,6 @@ import AddQuestion from './AddQuestion.jsx';
 import ViewQuestion from './ViewQuestion.jsx';
 
 // create edit Q as seperate everything...
-
-//var dbURL = `http://${window.APP_STATE.DBIP}:${window.APP_STATE.DBPORT}`;
 var dbURL = '';
 function initPid(userID) {
   return fetch(dbURL + '/pByU',{
@@ -70,8 +68,8 @@ function deleteQ(qid) {
 }
 
 class Create extends Component {
-  constructor(props, context) {
-    super(props, context);
+  constructor(props) {
+    super(props);
     this.state = {
       presentationID: 0,
       userID: this.props.user.userID,
@@ -81,7 +79,7 @@ class Create extends Component {
       qid: 0,
       questions: []
     };
-    dbURL = `http://${context.data.DBIP}:${context.data.DBPORT}`;
+    dbURL = `http://${DBIP}:${DBPORT}`;
 
     this.handleTitle = this.handleTitle.bind(this);
     this.handleType = this.handleType.bind(this);

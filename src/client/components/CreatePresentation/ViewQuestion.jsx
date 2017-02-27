@@ -1,9 +1,6 @@
 import Inferno from 'inferno';
 import Component from 'inferno-component';
-import propTypes from 'proptypes';
-Inferno.PropTypes = propTypes;
 
-//var dbURL = `http://${window.APP_STATE.DBIP}:${window.APP_STATE.DBPORT}`;
 var dbURL = '';
 
 function getAs(qid) {
@@ -15,26 +12,13 @@ function getAs(qid) {
 }
 
 class ViewQuestion extends Component {
-    static get NAME() {
-    return 'ViewQuestion';
-  }
-
-  static get contextTypes() {
-    return {data: inferno.PropTypes.object};
-  }
-
-  static requestData(params, domain='') {
-    return getAs();
-    // need args?
-  }
-
   constructor(props, context) {
     super(props, context);
     this.state = {
       items: (context.data[ViewQuestion.NAME] || []),
       answers: []
     };
-    dbURL = `http://${context.data.DBIP}:${context.data.DBPORT}`;
+    dbURL = `http://${DBIP}:${DBPORT}`;
 
     this.viewAnswers = this.viewAnswers.bind(this);
   }
@@ -42,7 +26,7 @@ class ViewQuestion extends Component {
   viewAnswers(qid) {
     if (this.state.answers.length > 0) {
       this.setState({answers: []});
-    } else {    
+    } else {
       getAs(qid)
         .then(data => {
           this.setState({answers: data});

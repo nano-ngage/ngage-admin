@@ -2,12 +2,9 @@ import Inferno from 'inferno';
 import Component from 'inferno-component';
 import AddQuestion from './AddQuestion.jsx';
 import ViewQuestion from './ViewQuestion.jsx';
-import propTypes from 'proptypes';
-Inferno.PropTypes = propTypes;
 
 // create edit Q as seperate everything...
 
-//var dbURL = `http://${window.APP_STATE.DBIP}:${window.APP_STATE.DBPORT}`;
 var dbURL = '';
 function initPid(userID) {
   return fetch(dbURL + '/pByU',{
@@ -81,23 +78,9 @@ function deleteQ(qid) {
 }
 
 class Edit extends Component {
-  static get NAME() {
-    return 'Edit';
-  }
-
-  static get contextTypes() {
-    return {data: inferno.PropTypes.object};
-  }
-
-  static requestData(params, domain='') {
-    return initPid();
-    // need args?
-  }
-
   constructor(props, context) {
     super(props, context);
     this.state = {
-      items: (context.data[Edit.NAME] || []),
       presentationID: 0,
       userID: 1,
       title: this.props.params.title,
@@ -106,7 +89,7 @@ class Edit extends Component {
       qid: 0,
       questions: []
     };
-    dbURL = `http://${context.data.DBIP}:${context.data.DBPORT}`;
+    dbURL = `http://${DBIP}:${DBPORT}`;
 
     // revise userID after auth is enabled
 
@@ -126,7 +109,7 @@ class Edit extends Component {
       }).catch(error => {});
     } else {
       initPid(this.state.userID)
-        .then(data => {this.setState({presentationID: data.presentationID})});  
+        .then(data => {this.setState({presentationID: data.presentationID})});
     }
   }
 

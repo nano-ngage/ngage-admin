@@ -2,11 +2,9 @@ import Inferno from 'inferno';
 import Component from 'inferno-component';
 import { Link } from 'inferno-router';
 import ViewPpt from './ViewPpt.jsx';
-import propTypes from 'proptypes';
-Inferno.PropTypes = propTypes;
 
-//var dbURL = `http://${window.APP_STATE.DBIP}:${window.APP_STATE.DBPORT}`;
 var dbURL = '';
+
 function getPpts(userID) {
   return fetch(dbURL + '/pByU/'+ userID,{
     method: 'GET',
@@ -33,25 +31,12 @@ function startPpt(pid, code) {
 }
 
 class ViewPresentations extends Component {
-  static get NAME() {
-    return 'ViewPresentations';
-  }
-
-  static get contextTypes() {
-    return {data: inferno.PropTypes.object};
-  }
-
-  static requestData(params, domain='') {
-    return getPpts();
-    // need args?
-  }
-
   constructor(props, context) {
     super(props, context);
     this.state = {
       ppts: this.props.ppts
     };
-    dbURL = `http://${context.data.DBIP}:${context.data.DBPORT}`;
+    dbURL = `http://${DBIP}:${DBPORT}`;
 
     // revise userID after auth is enabled
     this.generateRoomCode = this.generateRoomCode.bind(this);
