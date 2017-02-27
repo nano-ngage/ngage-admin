@@ -60,9 +60,9 @@
     "webpack-validator": "2.2.7"
   },
   "scripts": {
-    "prebuild": "rimraf src/dist/js",
+    "prebuild": "rimraf public/js",
     "build": "webpack --env.prod -p",
-    "prebuild:dev": "rimraf src/dist/js",
+    "prebuild:dev": "rimraf public/js",
     "build:dev": "webpack --env.dev --watch",
     "start": "nodemon src/server/index.js",
     "test": "mocha --bail --reporter nyan --compilers js:babel-core/register spec/admin-spec.js"
