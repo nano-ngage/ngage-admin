@@ -7,7 +7,7 @@ module.exports = env => {
   const { ifProd, ifNotProd } = getIfUtils(env);
   return webpackValidator({
     entry: {
-      app: path.join(__dirname, 'src', 'client', 'index.jsx')
+      app: path.join(__dirname, 'src', 'index.js')
     },
     output: {
       filename: 'bundle.[name].js',
