@@ -28,13 +28,6 @@ export default class App extends Component {
     })
   }
 
-  componentDidMount() {
-    if (!this.state.user) {
-      const user = JSON.parse(window.localStorage.getItem('user'))
-      this.handleUser(user);
-    }
-  }
-
   render() {
     // This is how you pass down props to children using Inferno Router
     const childWithProps = Inferno.cloneVNode(this.props.children, {
