@@ -29,7 +29,11 @@ module.exports = env => {
       ]
     },
     plugins: [
-      new ProgressBarPlugin()
+      new ProgressBarPlugin(),
+      new webpack.DefinePlugin({
+        'DBIP': '104.131.147.199',
+        'DBPORT': 5000
+      })
     ]
   });
 }
