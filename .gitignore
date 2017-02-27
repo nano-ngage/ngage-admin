@@ -1,9 +1,8 @@
 # Dependencies
 node_modules/
 
-
 # Compiled Files
-src/dist/js/
+public/js/
 
 # Secret Files
 secrets.js
