@@ -39,4 +39,17 @@ app.use(session({
   }
 }));
 
+// =====================================================
+// Static Files to serve
+// =====================================================
+app.use(express.static(path.resolve(__dirname, 'public')))
+
+
+// =====================================================
+// Send index.html with bundled script for client
+// =====================================================
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
+})
+
 module.exports = app;
