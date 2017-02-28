@@ -15,9 +15,9 @@ class AddAnswer extends Component {
   }
 
   handleAnswer(e) {
-    this.setState({answer: e.target.value});
-    this.props.add(this.state.answer, this.props.index);
     e.preventDefault();
+    this.setState({answer: e.target.value});
+    this.props.add(e.target.value, this.props.index);
   }
 
   handleCorrect(e) {
