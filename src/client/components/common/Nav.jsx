@@ -16,7 +16,7 @@ export default function Nav(props) {
     <div className='navbg'>
       <div className='navContainer'>
         <header className='navHeader'>
-          <img src="http://i63.tinypic.com/15czuvc.png" />
+          <img src="http://i63.tinypic.com/15czuvc.png" className="navimg" />
           <h1><Link to="/" className='navLogo'>ngage</Link></h1>
         </header>
         <nav>
