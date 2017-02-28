@@ -14,11 +14,11 @@ function getPpts(userID) {
 }
 
 function dbDeletePpt(pid) {
-  return fetch(dbURL + '/p/' + pid,{
+  fetch(dbURL + '/p/' + pid,{
     method: 'DELETE',
     mode: 'CORS',
     headers: {'Content-Type': 'application/JSON'}
-    }).then(data => data.json()).catch();
+    })
 }
 
 function startPpt(pid, code) {
