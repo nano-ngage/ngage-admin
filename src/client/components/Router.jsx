@@ -2,14 +2,14 @@ import Inferno from 'inferno';
 import { Router, Route, IndexRoute } from 'inferno-router';
 
 // Import Components Here
-import App from './components/index.jsx';
-import Home from './components/Home.jsx';
-import Login from './components/Auth/Login.jsx';
-import Logout from './components/Auth/Logout.jsx';
+import App from './App.jsx';
+import Home from './Home.jsx';
+import Login from './Auth/Login.jsx';
+import Logout from './Auth/Logout.jsx';
 
-import CreatePresentation from './components/CreatePresentation/CreatePresentation.jsx';
-import EditPresentation from './components/CreatePresentation/EditPresentation.jsx';
-import ViewPresentations from './components/ViewPresentations/ViewPresentations.jsx';
+import CreatePresentation from './CreatePresentation/CreatePresentation.jsx';
+import EditPresentation from './CreatePresentation/EditPresentation.jsx';
+import ViewPresentations from './ViewPresentations/ViewPresentations.jsx';
 
 function authOnly() {
   if (!window.localStorage.getItem('user')) {
