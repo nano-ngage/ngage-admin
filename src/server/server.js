@@ -4,6 +4,8 @@ import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import path from 'path';
 
+import { SESSION_SECRET } from '../../secrets.js';
+
 // Use Redis as session storage
 import redis from 'redis';
 const redisStore = require('connect-redis')(session);
@@ -42,14 +44,14 @@ app.use(session({
 // =====================================================
 // Static Files to serve
 // =====================================================
-app.use(express.static(path.resolve(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, '../../', 'public')))
 
 
 // =====================================================
 // Send index.html with bundled script for client
 // =====================================================
 app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
+  res.sendFile(path.join(__dirname, '../../', 'public', 'index.html'));
 })
 
 module.exports = app;
