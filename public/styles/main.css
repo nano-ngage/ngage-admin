@@ -2,15 +2,30 @@
 body {
   background-color: #ffffff;
 }
-.welcome{
+.row{
   display: flex;
-  flex-basis: 70vmin;
-  height: 90vh;
-  width: 100vw;
+  flex-direction: row;
   justify-content: center;
-  align-items: center;
-  text-align: center;
-  font-size: 10rem;
+  width: 100vw;
+  flex-basis: 70vmin;
+  margin-top: 10vmin;
+  margin-bottom: -10vmin;
+}
+.column {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 70vmin;
+  margin: 10vmin;
+  font-size: 1.1rem;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #5c5c5c;
+  line-height: 1.4rem;
+}
+.header {
+  display: flex;
+  justify-content: flex-start;
+  text-align: left;
+  font-size: 1.8rem;
   font-weight: 600;
   font-family: Arial, Helvetica, sans-serif;
   color: #288a2b;
@@ -20,6 +35,10 @@ body {
 }
 .container {
   margin: 20vmin;
+}
+.indent {
+  padding-left: 10px;
+  margin-left: 10px;
 }
 .ppt {
   display: flex;
@@ -430,7 +449,7 @@ body, p, h1, h2, h3, h4, ul, li {
   padding: 0;
   max-height: 100vh;
 }
-img {
+.navimg {
   height: 1.7rem;
   margin: 0 0.4rem 0 0;
 }
