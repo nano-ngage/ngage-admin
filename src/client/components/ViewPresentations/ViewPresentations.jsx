@@ -31,12 +31,9 @@ function startPpt(pid, code) {
 }
 
 class ViewPresentations extends Component {
-  constructor(props, context) {
-    super(props, context);
-    this.state = {
-      ppts: this.props.ppts
-    };
-    dbURL = `http://${DBIP}:${DBPORT}`;
+  constructor(props) {
+    super(props);
+    dbURL = `http://104.131.147.199:5000`;
 
     // revise userID after auth is enabled
     this.generateRoomCode = this.generateRoomCode.bind(this);
@@ -44,14 +41,11 @@ class ViewPresentations extends Component {
   }
 
   componentDidMount() {
-    getPpts(this.props.user.userID)
-    .then(data => {
-      if (data.length !== this.props.ppts.length) {
-        this.props.handlePresentations(data)
-      }
-    })
-    .catch(error => {console.log('unknown error loading users data.. refresh')});
-
+    if (this.props.user) {
+      getPpts(this.props.user.userID)
+      .then(data => { this.props.handlePresentations(data); })
+      .catch(error => { console.log('unknown error loading users data.. refresh'); });
+    }
   }
 
   deletePpt(pid) {
@@ -74,7 +68,6 @@ class ViewPresentations extends Component {
   }
 
   render() {
-    console.log('this.props.ppts', this.props.ppts)
     return (
       <div className="pptcontainer">
       <div className="viewContainer">
