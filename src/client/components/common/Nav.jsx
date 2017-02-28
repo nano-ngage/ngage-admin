@@ -5,9 +5,9 @@ export default function Nav(props) {
   let logger;
   if (props.user) {
     logger = [<li><Link to="/" className='navLink' >Home</Link></li>,
-      <li><Link to="view" className='navLink'>View</Link></li>,
-      <li><Link to="create"  className='navLink'>Create</Link></li>,
-      <li><Link to="logout" className='navLink'>Logout</Link></li>
+      <li><Link to="/view" className='navLink'>View</Link></li>,
+      <li><Link to="/create"  className='navLink'>Create</Link></li>,
+      <li><Link to="/logout" className='navLink'>Logout</Link></li>
     ]
   } else {
     logger = (<Link to="login" className='navLink'>Login</Link>)
