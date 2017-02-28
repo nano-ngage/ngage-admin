@@ -12,6 +12,7 @@ export default class Logout extends Component {
     window.localStorage.removeItem('id_token');
     window.localStorage.removeItem('profile');
     this.props.handleUser(null);
+    window.browserHistory.push('/');
   }
 
   render() {
