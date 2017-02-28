@@ -154,15 +154,6 @@ class Create extends Component {
             </div>
         </div>
 
-      <p className="presentation">&nbsp;Presentation Type: {this.state.typeDescription}</p>
-        <div className="addQuestion">
-          <a href="#" className="ppt" onClick={(e) => {this.handleType(e, 1)}}><p className="option">Multiple Choice</p></a>
-          <a href="#" className="ppt" onClick={(e) => {this.handleType(e, 2)}}><p className="option">Free Response</p></a>
-          <a href="#" className="ppt" onClick={(e) => {this.handleType(e, 3)}}><p className="option2">🙁 😐 🙂</p></a>
-          <a href="#" className="ppt" onClick={(e) => {this.handleType(e, 4)}}><p className="option2">👍 👎</p></a>
-          <a href="#" className="ppt" onClick={(e) => {this.handleType(e, 5)}}><p className="option">⭐ ⭐ ⭐</p></a>
-        </div>
-
         {this.state.questions.length > 0 ?
           (<div className="question">
             <p className="questionText">Saved Questions<br/></p>
@@ -176,6 +167,15 @@ class Create extends Component {
           </div>
           ) : ''
         }
+
+      <p className="presentation">&nbsp;Question Type: {this.state.typeDescription}</p>
+        <div className="addQuestion">
+          <a href="#" className="ppt" onClick={(e) => {this.handleType(e, 1)}}><p className="option">Multiple Choice</p></a>
+          <a href="#" className="ppt" onClick={(e) => {this.handleType(e, 2)}}><p className="option">Free Response</p></a>
+          <a href="#" className="ppt" onClick={(e) => {this.handleType(e, 3)}}><p className="option2">🙁 😐 🙂</p></a>
+          <a href="#" className="ppt" onClick={(e) => {this.handleType(e, 4)}}><p className="option2">👍 👎</p></a>
+          <a href="#" className="ppt" onClick={(e) => {this.handleType(e, 5)}}><p className="option">⭐ ⭐ ⭐</p></a>
+        </div>
 
         <AddQuestion presentationID={this.state.presentationID}
           addToViewQuestions={this.addToViewQuestions}
