@@ -72,14 +72,13 @@ class Create extends Component {
     super(props);
     this.state = {
       presentationID: 0,
-      userID: this.props.user.userID,
       title: '',
       type: 1,
       typeDescription: 'Multiple Choice',
       qid: 0,
       questions: []
     };
-    dbURL = `http://${DBIP}:${DBPORT}`;
+    dbURL = `http://104.131.147.199:5000`;
 
     this.handleTitle = this.handleTitle.bind(this);
     this.handleType = this.handleType.bind(this);
@@ -95,8 +94,8 @@ class Create extends Component {
       getQs(this.props.params.id).then(data => {
         this.setState({questions: data});
       }).catch(error => {});
-    } else {
-      initPid(this.state.userID)
+    } else if (this.props.user) {
+      initPid(this.props.user.userID)
         .then(data => {this.setState({presentationID: data.presentationID})});
     }
   }
