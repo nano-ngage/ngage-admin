@@ -11,9 +11,28 @@ import CreatePresentation from './CreatePresentation/CreatePresentation.jsx';
 import EditPresentation from './CreatePresentation/EditPresentation.jsx';
 import ViewPresentations from './ViewPresentations/ViewPresentations.jsx';
 
-function authOnly() {
-  if (!window.localStorage.getItem('user')) {
-    window.browserHistory.push('/login')
+var dbURL = 'http://104.131.147.199:5000';
+
+function getPpts(userID) {
+  return fetch(dbURL + '/pByU/'+ userID,{
+    method: 'GET',
+    mode: 'CORS',
+    headers: {'Content-Type': 'application/JSON'},
+    }).then(data => data.json());
+}
+
+function authOnly({props}) {
+  if (!props.user) {
+    const user = JSON.parse(window.localStorage.getItem('user'))
+    if (!user) {
+      window.browserHistory.push('/login')
+    } else {
+      props.handleUser(user)
+      getPpts(user.userID)
+        .then(ppts => {
+          props.handlePresentations(ppts)
+        })
+    }
   }
 }
 
