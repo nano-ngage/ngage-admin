@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const webpackValidator = require('webpack-validator');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const getIfUtils = require('webpack-config-utils').getIfUtils;
@@ -7,7 +8,7 @@ module.exports = env => {
   const { ifProd, ifNotProd } = getIfUtils(env);
   return webpackValidator({
     entry: {
-      app: path.join(__dirname, 'src', 'index.js')
+      app: path.join(__dirname, 'src', 'client', 'index.js')
     },
     output: {
       filename: 'bundle.[name].js',
@@ -29,11 +30,7 @@ module.exports = env => {
       ]
     },
     plugins: [
-      new ProgressBarPlugin(),
-      new webpack.DefinePlugin({
-        'DBIP': '104.131.147.199',
-        'DBPORT': 5000
-      })
+      new ProgressBarPlugin()
     ]
   });
 }
