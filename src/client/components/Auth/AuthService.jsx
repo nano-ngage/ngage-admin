@@ -13,7 +13,12 @@ export default class AuthService extends EventEmitter {
       auth: {
           redirect: false,
           responseType: 'token'
-        }
+        },
+       autoclose: true,
+       theme: {
+         logo: 'http://i68.tinypic.com/2n7odg.png',
+         primaryColor: '#2f4961'
+       }  
     });
     // Add callback for lock `authenticated` event
     this.lock.on('authenticated', this._doAuthentication.bind(this))
