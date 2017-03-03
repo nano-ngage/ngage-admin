@@ -47,6 +47,7 @@ export default class App extends Component {
     });
     return (
       <div id="app">
+
         <h1>ngage</h1>
         <hr />
         <Nav user={this.state.user}/>
