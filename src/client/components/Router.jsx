@@ -10,6 +10,7 @@ import Logout from './Auth/Logout.jsx';
 import CreatePresentation from './CreatePresentation/CreatePresentation.jsx';
 import EditPresentation from './CreatePresentation/EditPresentation.jsx';
 import ViewPresentations from './ViewPresentations/ViewPresentations.jsx';
+import Stats from './Stats/Stats.jsx';
 
 var dbURL = 'http://104.131.147.199:5000';
 
@@ -43,6 +44,7 @@ export default (history) => (
       <Route path="edit/:id/:title" component={ EditPresentation } onEnter={authOnly} />
       <Route path="create" component={ CreatePresentation } onEnter={authOnly} />
       <Route path="view" component={ ViewPresentations } onEnter={authOnly} />
+      <Route path="stats" component={ Stats } onEnter={authOnly} />
       <Route path="login" component={ Login } />
       <Route path="logout" component={ Logout } />
     </Route>
