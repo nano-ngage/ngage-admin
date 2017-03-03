@@ -10,7 +10,7 @@ export default function Nav(props) {
       <li><Link to="/logout" className='navLink'>Logout</Link></li>
     ]
   } else {
-    logger = (<Link to="login" className='navLink'>Login</Link>)
+    logger = (<Link to="login" className='navLink'>Login/Sign up</Link>)
   }
   return (
     <div className='navbg'>
