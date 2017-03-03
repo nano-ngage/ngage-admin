@@ -155,6 +155,9 @@ body {
 .button:hover {
     background-color: #43a047;
 }
+.buttonMenu {
+  display: flex;
+}
 .submitFlex{
   display: flex;
   width: 75vw;
