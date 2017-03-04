@@ -1,6 +1,7 @@
 /*Create PPT*/
 body {
   background-color: #ffffff;
+  overflow-x: hidden;
 }
 .row{
   display: flex;
