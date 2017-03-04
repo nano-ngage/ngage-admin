@@ -1,7 +1,7 @@
 import Inferno from 'inferno';
 import Component from 'inferno-component';
 import { Link } from 'inferno-router';
-import ViewPpt from './ViewPpt.jsx';
+import ViewGroup from './ViewGroup.jsx';
 
 var dbURL = '';
 
@@ -30,7 +30,7 @@ function startPpt(pid, code) {
     }).then(data => data.json());
 }
 
-class ViewPresentations extends Component {
+class Groups extends Component {
   constructor(props) {
     super(props);
     dbURL = `http://104.131.147.199:5000`;
@@ -71,17 +71,14 @@ class ViewPresentations extends Component {
     return (
       <div className="pptcontainer">
       <div className="viewContainer">
-      <p className="presentation">Presentations</p>
-      <div className="create">
-        <Link to="/create"><button type="submit" className="button">Create New Presentation</button></Link>
-      </div>
+      <p className="presentation">Groups</p>
         {this.props.ppts.length > 0 ? (this.props.ppts.map((ppt, index) => {
             return (
-              <ViewPpt ppt={ppt} key={index} delete={this.deletePpt} start={this.generateRoomCode} />
+              <ViewGroup ppt={ppt} key={index} delete={this.deletePpt} start={this.generateRoomCode} />
             )
           })) : (<div className="emptyPpt">
-        Click&nbsp;<Link to="/create" className="emptyPptText">here</Link>
-        &nbsp;to create a presentation!</div>)
+        Click&nbsp;<Link to="/creategroup" className="emptyPptText">here</Link>
+        &nbsp;to create a group!</div>)
         }
       </div>
       </div>
@@ -89,4 +86,4 @@ class ViewPresentations extends Component {
   }
 }
 
-export default ViewPresentations;
+export default Groups;
