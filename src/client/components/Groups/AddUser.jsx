@@ -29,7 +29,7 @@ class AddUser extends Component {
   handleSearch(e) {
     e.preventDefault();
     this.setState({search: e.target.value});
-    if (this.state.search.length > 3) {
+    if (this.state.search.length > 1) {
       searchUsers(this.state.search)
         .then(data => {
           this.setState({checked: false});
