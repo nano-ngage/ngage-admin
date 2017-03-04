@@ -5,7 +5,7 @@ import ViewQuestion from './ViewQuestion.jsx';
 
 // create edit Q as seperate everything...
 
-var dbURL = '';
+var dbURL = `http://${DBIP}:${DBPORT}`;
 function initPid(userID) {
   return fetch(dbURL + '/pByU',{
     method: 'POST',
@@ -88,7 +88,6 @@ class Edit extends Component {
       qid: 0,
       questions: []
     };
-    dbURL = `http://104.131.147.199:5000`;
 
     // revise userID after auth is enabled
 

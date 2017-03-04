@@ -1,8 +1,8 @@
 import Inferno from 'inferno';
 import Component from 'inferno-component';
 
-var dbURL = 'http://104.131.147.199:5000';
-var statsURL = 'http://104.131.147.199:4555';
+var dbURL = `http://${DBIP}:${DBPORT}`;
+var statsURL = `http://${STATSIP}:${STATSPORT}`;
 function getGroups(userID) {
   return fetch(dbURL + '/gByU/' + userID,{
       method: 'GET',

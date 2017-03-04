@@ -1,7 +1,7 @@
 import Inferno from 'inferno';
 import Component from 'inferno-component';
 import AuthService from './AuthService.jsx';
-import { AUTH0_DOMAIN, AUTH0_CLIENT_ID } from '../../../../secrets.js';
+// import { AUTH0_DOMAIN, AUTH0_CLIENT_ID } from '../../../../secrets.js';
 
 export default class Login extends Component {
   constructor(props) {

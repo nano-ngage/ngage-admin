@@ -3,7 +3,7 @@ import Component from 'inferno-component';
 import { Link } from 'inferno-router';
 import ViewPpt from './ViewPpt.jsx';
 
-var dbURL = '';
+var dbURL = `http://${DBIP}:${DBPORT}`;
 
 function getPpts(userID) {
   return fetch(dbURL + '/pByU/'+ userID,{
@@ -33,8 +33,7 @@ function startPpt(pid, code) {
 class ViewPresentations extends Component {
   constructor(props) {
     super(props);
-    dbURL = `http://104.131.147.199:5000`;
-
+    
     // revise userID after auth is enabled
     this.generateRoomCode = this.generateRoomCode.bind(this);
     this.deletePpt = this.deletePpt.bind(this);
