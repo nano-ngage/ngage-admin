@@ -333,8 +333,7 @@ body {
 }
 .create{
   display: flex;
-  width: 80vw;
-  margin-right: 5vw;
+  width: 74.5vw;
   justify-content: flex-end;
 }
 .createText {
@@ -346,8 +345,6 @@ body {
 }
 .viewPpt {
   display: flex;
-  /*flex-basis: 250px;*/
-  height: 10vh;
   width: 75vw;
   background-color: #2f4961;
   box-shadow: 5px 5px 5px 0 rgba(230,230,230,2);
@@ -372,6 +369,8 @@ body {
   text-align: center;
   width: 100%;
   font-size: 1.5rem;
+  padding-top: 3vmin;
+  padding-bottom: 3vmin;
   font-family: Arial, Helvetica, sans-serif;
   color:#ffffff;
   text-decoration: none;
@@ -383,6 +382,9 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   color:#ffffff;
   margin-right: 25px;
+  text-decoration: none;
+}
+.correct:hover {
   text-decoration: none;
 }
 .delete {

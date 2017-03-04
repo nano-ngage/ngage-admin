@@ -45,7 +45,7 @@ export default (history) => (
       <Route path="presentations" component={ ViewPresentations } onEnter={authOnly} />
       <Route path="groups" component={ ViewGroups } onEnter={authOnly} />
       <Route path="creategroup" component={ CreateGroup } onEnter={authOnly} />
-      <Route path="editgroup/:id/:title" component={ EditGroup } onEnter={authOnly} />
+      <Route path="editgroup/:id/:name" component={ EditGroup } onEnter={authOnly} />
       <Route path="statistics" component={ Statistics } onEnter={authOnly} />
       <Route path="login" component={ Login } />
       <Route path="logout" component={ Logout } />

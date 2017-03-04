@@ -1,10 +1,9 @@
 import Inferno from 'inferno';
 import Component from 'inferno-component';
-// import AddQuestion from './AddQuestion.jsx';
-// import ViewGroup from './ViewGroup.jsx';
+import AddUser from './AddUser.jsx';
 
-// create edit Q as seperate everything...
 var dbURL = '';
+
 function initGid(userID) {
   return fetch(dbURL + '/g',{
     method: 'POST',
@@ -23,77 +22,56 @@ function updateName(gid, name) {
     }).then(data => data.json());
 }
 
-// function getUsers(pid) {
-//   return fetch(dbURL + '/qByP/'+pid,{
-//     method: 'GET',
-//     mode: 'CORS',
-//     headers: {'Content-Type': 'application/JSON'},
-//     }).then(data => data.json()).catch();
-// }
+function getUsers(gid) {
+  return fetch(dbURL + '/gmByG/'+gid,{
+    method: 'GET',
+    mode: 'CORS',
+    headers: {'Content-Type': 'application/JSON'},
+    }).then(data => data.json()).catch();
+}
 
-// function postQ(pid, type, question) {
-//   return fetch(dbURL + '/qByP',{
-//     method: 'POST',
-//     mode: 'CORS',
-//     headers: {'Content-Type': 'application/JSON'},
-//     body: JSON.stringify({'presentationID': pid, 'type': type, 'question': question})
-//     }).then(data => data.json());
-// }
+function postUser(gid, uid) {
+  return fetch(dbURL + '/gm',{
+    method: 'POST',
+    mode: 'CORS',
+    headers: {'Content-Type': 'application/JSON'},
+    body: JSON.stringify({'groupID': gid, 'userID': uid})
+    }).then(data => data.json());
+}
 
-// function postAnswers(qid, answers) {
-//   return fetch(dbURL + '/aByQs',{
-//     method: 'POST',
-//     mode: 'CORS',
-//     headers: {'Content-Type': 'application/JSON'},
-//     body: JSON.stringify({'questionID': qid, 'answers': answers})
-//     }).then(data => data.json());
-// }
-
-// function editQ(qid) {
-//   return fetch(dbURL + '/q/' + qid,{
-//     method: 'PUT',
-//     mode: 'CORS',
-//     headers: {'Content-Type': 'application/JSON'},
-//     body: JSON.stringify({'UPDATEHERE': 'FOR PID, QID, QUESTION, TYPE'})
-//     }).then(data => data.json());
-//   // add body with corrent format above
-// }
-
-// function deleteQ(qid) {
-//   return fetch(dbURL + '/q/'+ qid,{
-//     method: 'DELETE',
-//     mode: 'CORS',
-//     headers: {'Content-Type': 'application/JSON'}
-//     }).then(data => data.json()).catch();
-// }
+function deleteUser(gid, uid) {
+  return fetch(dbURL + '/gm/'+ gid + '/' + uid, {
+    method: 'DELETE',
+    mode: 'CORS',
+    headers: {'Content-Type': 'application/JSON'}
+    }).then(data => data.json()).catch();
+}
 
 class CreateGroup extends Component {
   constructor(props) {
     super(props);
     this.state = {
       groupID: 0,
-      name: ''
-      // qid: 0,
-      // questions: []
+      name: '',
+      users: []
     };
+
     dbURL = `http://104.131.147.199:5000`;
 
     this.handleName = this.handleName.bind(this);
-    // this.handleType = this.handleType.bind(this);
-    // this.handleSubmit = this.handleSubmit.bind(this);
-    // this.deleteQuestion = this.deleteQuestion.bind(this);
-    // this.addToViewQuestions = this.addToViewQuestions.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.deleteUser = this.deleteUser.bind(this);
+    this.addToViewUsers = this.addToViewUsers.bind(this);
   }
 
   componentDidMount() {
-    // if (this.props.params.id > 0) {
-    //   this.setState({groupID: this.props.params.id});
-    //   this.setState({title: this.props.params.title});
-    //   getQs(this.props.params.id).then(data => {
-    //     this.setState({questions: data});
-    //   }).catch(error => {});
-    // } else 
-    if (this.props.user) {
+    if (this.props.params.id > 0) {
+      this.setState({groupID: this.props.params.id});
+      this.setState({name: this.props.params.name});
+      getUsers(this.props.params.id).then(data => {
+        this.setState({users: data});
+       }).catch(error => {});
+    } else if (this.props.user) {
       initGid(this.props.user.userID)
         .then(data => {this.setState({groupID: data.groupID})});
     }
@@ -109,26 +87,29 @@ class CreateGroup extends Component {
     updateName(this.state.groupID, this.state.name);
   }
 
-  // deleteQuestion(qid) {
-  //   var questions = [];
-  //   this.state.questions.forEach((question, index) => {
-  //     if (question.questionID !== qid) {
-  //       questions.push(question);
-  //     }
-  //   });
-  //   this.setState({questions: questions});
-  //   deleteQ(qid);
-  // }
+  deleteUser(uid) {
+    var users = [];
+    this.state.users.forEach((user, index) => {
+      if (user.userID !== uid) {
+        users.push(user);
+      }
+    });
+    this.setState({users: users});
+    deleteUser(this.state.groupID, uid);
+  }
 
-  // addToViewQuestions(newQuestion, answers) {
-  //   postQ(this.state.presentationID, this.state.type, newQuestion)
-  //     .then(data => {
-  //       var questions = this.state.questions;
-  //       questions.push({question: newQuestion, questionID: data.questionID});
-  //       this.setState({questions: questions});
-  //       postAnswers(data.questionID, answers);
-  //     }).catch();
-  // }
+  addToViewUsers(newUser) {
+    if (this.state.users.map((user, index) => {
+      return user.userID;
+    }).indexOf(newUser.userID) === -1) {
+      var users = this.state.users;
+      users.push(newUser);
+      this.setState({users: users});
+      postUser(this.state.groupID, newUser.userID)
+        .then(data => {
+        }).catch();
+    }
+  }
 
   render() {
     return (
@@ -140,12 +121,31 @@ class CreateGroup extends Component {
             </div>
         </div>
 
+        {this.state.users.length > 0 ?
+          (<div className="question">
+            <p className="questionText">Current Group Members<br/></p>
+            {this.state.users.map((user, index) => {
+                return (
+                  <div className="viewQuestion">
+                      <span className="title">{user.firstName + ' ' + user.lastName}</span>
+                        <span className="actions">
+                        <span className="action" onClick={() => {this.deleteUser(user.userID)}}>Delete</span>
+                      </span>
+                  </div>
+                )
+              })
+            }
+            <br />
+          </div>
+          ) : ''
+        }
 
+        <AddUser groupID={this.state.groupID} addToViewUsers={this.addToViewUsers} />
 
         <div className="submitFlex">
         <form onSubmit={this.handleSubmit}>
           <div className="submitFlexPpt">
-          <button type="submit" className="button">✓ Group</button>
+          <button type="submit" className="button">✓ Save Group</button>
           </div>
         </form>
         </div>
