@@ -9,11 +9,13 @@ export default class App extends Component {
     super(props);
     this.state = {
       user: null,
-      ppts: []
+      ppts: [],
+      groups: []
     };
 
     this.handleUser = this.handleUser.bind(this);
     this.handlePresentations = this.handlePresentations.bind(this);
+    this.handleGroups = this.handleGroups.bind(this);
   }
 
   handleUser(user) {
@@ -25,6 +27,12 @@ export default class App extends Component {
   handlePresentations(ppts) {
     this.setState({
       ppts: ppts
+    })
+  }
+
+  handleGroups(groups) {
+    this.setState({
+      groups: groups
     })
   }
 
@@ -42,8 +50,10 @@ export default class App extends Component {
     const childWithProps = Inferno.cloneVNode(this.props.children, {
       handleUser: this.handleUser,
       handlePresentations: this.handlePresentations,
+      handleGroups: this.handleGroups,
       user: this.state.user,
-      ppts: this.state.ppts
+      ppts: this.state.ppts,
+      groups: this.state.groups
     });
     return (
       <div id="app">

@@ -48,6 +48,17 @@ class ViewPresentations extends Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (!this.props.user && nextProps.user) {
+    console.log('receive props', this.props);
+      getPpts(nextProps.user.userID)
+      .then(data => { 
+         this.props.handlePresentations(data)
+       })
+      .catch(error => { console.log('unknown error loading group data.. refresh'); });
+    }
+  }
+
   deletePpt(pid) {
     var ppts = [];
     this.props.ppts.forEach((ppt, index) => {
@@ -71,17 +82,14 @@ class ViewPresentations extends Component {
     return (
       <div className="pptcontainer">
       <div className="viewContainer">
-      <p className="presentation">Presentations</p>
       <div className="create">
-        <Link to="/create"><button type="submit" className="button">Create New Presentation</button></Link>
+        <Link to="/create" className="createText"><img src="http://i65.tinypic.com/2i12vb4.png" height="20px" className="icon" />&nbsp;New Presentation</Link>
       </div>
         {this.props.ppts.length > 0 ? (this.props.ppts.map((ppt, index) => {
             return (
               <ViewPpt ppt={ppt} key={index} delete={this.deletePpt} start={this.generateRoomCode} />
             )
-          })) : (<div className="emptyPpt">
-        Click&nbsp;<Link to="/create" className="emptyPptText">here</Link>
-        &nbsp;to create a presentation!</div>)
+          })) : (<div className="viewPpt"><Link to="/create" className="newEntry">Click here to create a presentation!</Link></div>)
         }
       </div>
       </div>

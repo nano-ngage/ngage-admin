@@ -11,10 +11,10 @@ class ViewGroup extends Component {
     return (
       <div>
         <div className="viewPpt">
-          <span className="title">{this.props.ppt.title}</span>
-            <span className="actions"><span className="action" onClick={() => {this.props.start(this.props.ppt.presentationID)}}>Start</span>&nbsp;|&nbsp;
-            <Link to={"/edit/" + this.props.ppt.presentationID + '/' + this.props.ppt.title} className="action">Edit</Link>&nbsp;|&nbsp;
-            <span className="action" onClick={() => {this.props.delete(this.props.ppt.presentationID)}}>Delete</span></span>
+          <span className="title">{this.props.group.name}</span>
+            <span className="actions">
+            <Link to={"/editgroup/" + this.props.group.groupID + '/' + this.props.group.name} className="action">Edit</Link>&nbsp;|&nbsp;
+            <span className="action" onClick={() => {this.props.delete(this.props.group.groupID)}}>Delete</span></span>
         </div>
       </div>
     );
