@@ -574,7 +574,6 @@ body, p, h1, h2, h3, h4, ul, li {
 .graph {
   height: 500px;
   width: 1000px;
-  display: flex;
 }
 
 .graph .grid {
@@ -621,4 +620,7 @@ body, p, h1, h2, h3, h4, ul, li {
   /*margin-top: 1vmin;*/
   margin-left: 30vmin;
   zoom: 110%;
+}
+.presentationTitle {
+  text-align: center;
 }

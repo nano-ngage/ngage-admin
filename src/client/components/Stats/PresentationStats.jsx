@@ -82,7 +82,7 @@ class PresentationStats extends Component {
         </select>
         {(this.state.stats && this.state.stats.length > 0) ? (
           <div>
-            <h1>{this.state.title}</h1>
+            <h1 className="presentationTitle">{this.state.title}</h1>
             <svg className="graph zoom" aria-labelledby="title" role="img">
               <g className="grid x-grid" id="xGrid">
                 <line x1="90" x2="90" y1="5" y2="371"></line>
