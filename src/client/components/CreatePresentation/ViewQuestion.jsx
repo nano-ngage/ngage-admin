@@ -1,7 +1,7 @@
 import Inferno from 'inferno';
 import Component from 'inferno-component';
 
-var dbURL = '';
+var dbURL = `http://${DBIP}:${DBPORT}`;
 
 function getAs(qid) {
   return fetch(dbURL + '/aByQ/'+qid,{
@@ -17,7 +17,6 @@ class ViewQuestion extends Component {
     this.state = {
       answers: []
     };
-    dbURL = `http://104.131.147.199:5000`;
 
     this.viewAnswers = this.viewAnswers.bind(this);
   }

@@ -1,7 +1,7 @@
 import Inferno from 'inferno';
 import Component from 'inferno-component';
 
-var statsURL = 'http://104.131.147.199:4555';
+var statsURL = `http://${STATSIP}:${STATSPORT}`;
 function getSessionStats(userID) {
   return fetch(statsURL + '/userSessionStats/' + userID,{
       method: 'GET',
