@@ -9,7 +9,7 @@ class Stats extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      view: 'groupStats'
+      view: 'presentationStats'
     }
     this.changeView = this.changeView.bind(this);
   }
@@ -18,18 +18,18 @@ class Stats extends Component {
     e.preventDefault();
     this.setState({view:e.target.id})
   }
+
+// add loading image!
+
   render() {
     return (
       <div>
-        <div className="buttonMenu">
-          <button className="button" onClick={this.changeView} id="groupStats">Group Stats</button>
-          <button className="button" onClick={this.changeView} id="userStats">User Stats</button>
+        <div className="row">
           <button className="button" onClick={this.changeView} id="presentationStats">Presentation Stats</button>
+          <button className="button" onClick={this.changeView} id="userStats">Session Stats</button>
+          <button className="button" onClick={this.changeView} id="groupStats">Group Stats</button>
         </div>
-
-        <div>
           {this.state.view === 'groupStats' ? (<GroupStats user={this.props.user}/>) : this.state.view === 'userStats' ? (<UserStats user={this.props.user}/>) : (<PresentationStats user={this.props.user}/>)}
-        </div>
       </div>
     );
   }
