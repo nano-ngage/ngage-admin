@@ -10,26 +10,24 @@ class Stats extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      view: 'presentationStats'
+      view: 'groupStats'
     }
     this.changeView = this.changeView.bind(this);
   }
 
   changeView(e) {
     e.preventDefault();
-    this.setState({view:e.target.id})
+    this.setState({view: e.target.id});
   }
-
-// add loading image!
 
   render() {
     return (
       <div>
         <div className="row">
-          <button className="button" onClick={this.changeView} id="presentationStats">Presentation Stats</button>
-          <button className="button" onClick={this.changeView} id="userStats">Session Stats</button>
-          <button className="button" onClick={this.changeView} id="groupStats">Group Stats</button>
-          <button className="button" onClick={this.changeView} id="participationStats">Participation Stats</button>
+          <button className={this.state.view === 'groupStats' ? 'button' : 'statsView'}  onClick={this.changeView} id="groupStats">Group Stats</button>
+          <button className={this.state.view === 'participationStats' ? 'button' : 'statsView'} onClick={this.changeView} id="participationStats">Participation Stats</button>
+          <button className={this.state.view === 'presentationStats' ? 'button' : 'statsView'} onClick={this.changeView} id="presentationStats">Presentation Stats</button>
+          <button className={this.state.view === 'userStats' ? 'button' : 'statsView'}  onClick={this.changeView} id="userStats">Session Stats</button>
         </div>
         <div>
           {this.state.view === 'groupStats' ? (<GroupStats user={this.props.user}/>) : 

@@ -84,7 +84,7 @@ class PresentationStats extends Component {
         {(this.state.stats === 'loading') ? <div><img src="http://i66.tinypic.com/2qvw0ax.gif" /><p className="loadingText">Loading...</p></div> : 
         (this.state.stats && this.state.stats.length > 0 && (typeof this.state.stats !== 'string')) ? (
           <div>
-            <h1 className="presentationTitle">{this.state.title}</h1><br/>
+            <h1 className="presentationTitle">{this.state.title}</h1><br/><br/>
             <svg className="graph zoom" aria-labelledby="title" role="img">
               <g className="grid x-grid" id="xGrid">
                 <line x1="90" x2="90" y1="5" y2='371'></line>

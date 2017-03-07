@@ -95,7 +95,7 @@ class GroupStats extends Component {
           <tbody>
             {this.state.stats.map(stat => <tr className="shadow"><td>{stat.lastName}</td><td className="twidth">{stat.firstName}</td><td  className="tcenter">{stat.responses}</td><td  className="tcenter">{stat.participants}</td></tr>)}
           </tbody>
-        </table></div>) : 
+        </table><br /><br /><br /></div>) : 
         (Array.isArray(this.state.stats) && this.state.stats.length === 0) ? <p className="loadingText">There is no data for this group</p> : ''}
       </div>
       </div>

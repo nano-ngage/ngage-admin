@@ -40,9 +40,7 @@ function getData(node, total) {
 
 function calculateSectors( data ) {
     var sectors = [];
-    var colors = [
-        "#61C0BF", "#DA507A", "#BB3D49", "#DB4547", "blue"
-    ];
+    var colors = ["#684A52", "#FA9F42", "#721817", "#2B4162", "#288A2B"];
 
     var l = data.size / 2
     var a = 0 // Angle
@@ -101,8 +99,7 @@ function calculateSectors( data ) {
     return sectors
 } 
 
-
-class ParticpationStats extends Component {
+class ParticipationStats extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -115,6 +112,7 @@ class ParticpationStats extends Component {
     this.setChart = this.setChart.bind(this);
   }
   componentDidMount() {
+    console.log('in mount');
     var that = this;
     if (this.props.user && !this.state.stats) {
       getParticipationStats(this.props.user.userID)
@@ -135,27 +133,42 @@ class ParticpationStats extends Component {
   handleChange(e) {
     this.setChart(e.target.value);
   }
+
   render() {
     return (
-      <div >
+      <div>
         {this.state.stats ? (
-          <div className="buttonMenu">
-            <input onChange={this.handleChange} type="range" min="0" max={this.state.stats.length - 1} />
-            <div>{this.state.selectDate}</div>
-          </div>
-          ) : <div>Loading...</div>}
+          <div><div className="row">
+            <h1 className="presentationTitle">Select Presentation Date</h1><br/><br/></div>
+            <div className="row">
+            <input onChange={this.handleChange} width="300px" type="range" min="0" max={this.state.stats.length - 1} />
+            <div className="selectDate">{this.state.selectDate}</div>
+          </div></div>
+          ) : <div></div>}
         {
-          (this.state.sliderPos !== -1 && this.state.pieChart) ? (
-              <div>
-                <svg style="width: 230px; height: 230px;">
-                {this.state.pieChart.map(sector => <path fill={sector.color} d={'M' + sector.L + ',' + sector.L + ' L' + sector.L + ',0 A' + sector.L + ',' + sector.L + ' 1 ' + sector.large + ',1 ' + sector.X + ', ' + sector.Y + ' z'} transform={'rotate(' + sector.R + ', '+ sector.L+', '+ sector.L+')'}></path>)}
+          (this.state.pieChart) ? (
+              <div className="row">
+                <svg className="pieChart">
+                {this.state.pieChart.map(sector => <path fill={sector.color} 
+                  d={'M' + sector.L + ',' + sector.L + ' L' + sector.L + ',0 A' + sector.L + ',' + sector.L + ' 1 ' + sector.large + ',1 ' + sector.X + ', ' + sector.Y + ' z'} 
+                  transform={'rotate(' + sector.R + ', '+ sector.L+', '+ sector.L+')'}></path>)}
+                </svg>
+                <svg>
+                <g className="legend-item" fill='#5c5c5c' data-setname="Participants">
+                  <circle cx="10" cy='80' r="0"></circle>
+                  <text x="14"  y='85'>% of Users Who Answered:</text>
+                </g>
+                {this.state.pieChart.map((sector,index) => <g className="legend-item" fill={sector.color} data-setname="Participants">
+                  <circle cx="20" cy={index*20 + 100} r="5"></circle>
+                  <text x="30"  y={index*20 + 105} >{sector.label*100 + '%'} of Questions</text>
+                </g>)}
                 </svg>
               </div>
-            ) : (<div>Loading...</div>)
+            ) : (<div className="row"><div><img src="http://i66.tinypic.com/2qvw0ax.gif" /><p className="loadingText">Loading...</p></div></div>)
         }
       </div>
     );
   }
 }
 
-export default ParticpationStats;
+export default ParticipationStats;
