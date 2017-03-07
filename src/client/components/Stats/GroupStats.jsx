@@ -10,6 +10,7 @@ function getGroups(userID) {
       headers: {'Content-Type': 'application/JSON'}
       }).then(data => data.json());
 }
+
 function getGroupStats(userID, groupID) {
   return fetch(statsURL + '/groupStats?groupID=' + groupID + '&presenterID=' + userID,{
       method: 'GET',
@@ -17,15 +18,18 @@ function getGroupStats(userID, groupID) {
       headers: {'Content-Type': 'application/JSON'}
       }).then(data => data.json());
 }
+
 class GroupStats extends Component {
   constructor(props) {
     super(props);
     this.state = {
       groups: [],
-      stats: []
+      stats: '',
+      groupName: ''
     }
-    this.handleChange = this.handleChange.bind(this)
+    this.handleChange = this.handleChange.bind(this);
   }
+
   componentDidMount() {
     if (this.props.user) {
       getGroups(this.props.user.userID)
@@ -35,6 +39,7 @@ class GroupStats extends Component {
       .catch(error => { console.log('unknown error loading group data.. refresh'); });
     }
   }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.user) {
       getGroups(nextProps.user.userID)
@@ -44,36 +49,55 @@ class GroupStats extends Component {
       .catch(error => { console.log('unknown error loading group data.. refresh'); });
     }
   }
+
   handleChange(e) {
     var that = this;
+    this.setState({stats: 'loading'});
     if (e.target.value != -1) {
+      var index = e.target.selectedIndex;
+      this.setState({groupName: e.target[index].text});
       getGroupStats(that.props.user.userID, e.target.value).then(stats => {
-        console.log(stats);
-        this.setState({stats});
-      })
+        function compare(a,b) {
+          if (a.lastName < b.lastName)
+            return -1;
+          if (a.lastName > b.lastName)
+            return 1;
+          return 0;
+        }
+        var sorted = stats.sort(compare);
+        this.setState({stats: sorted});
+      });
     }
   }
+
   render() {
     return (
-      <div >
-        <select onChange={this.handleChange}>
-          <option value="-1">Please select a group</option>
-          {this.state.groups.map(group => <option value={group.groupID}>{group.name}</option>)}
+      <div>
+      <div className="row">
+        <select onChange={this.handleChange}  className="styled-select slate">
+          <option value="-1">&nbsp; Please select a group</option>
+          {this.state.groups.map(group => <option value={group.groupID}>&nbsp; {group.name}</option>)}
         </select>
-        <div>
+        </div>
+        <div className="row">
+        {this.state.stats === 'loading' ? <div><img src="http://i66.tinypic.com/2qvw0ax.gif" /><p className="loadingText">Loading...</p></div> :  
+        this.state.stats.length > 0 ? 
+        (<div><h1 className="presentationTitle">{this.state.groupName} Statistics</h1><br/><br/>
         <table>
           <thead>
           <tr>
-            <th>Name</th>
-            <th>Responses</th>
-            <th>Participants</th>
+            <th>&nbsp;Last Name</th>
+            <th className="twidth">&nbsp;First Name</th>
+            <th className="tcenter">Responses</th>
+            <th className="tcenter">Participants</th>
           </tr>
           </thead>
           <tbody>
-            {this.state.stats.map(stat => <tr><td>{stat.firstName + ' ' + stat.lastName}</td><td>{stat.responses}</td><td>{stat.participants}</td></tr>)}
+            {this.state.stats.map(stat => <tr className="shadow"><td>{stat.lastName}</td><td className="twidth">{stat.firstName}</td><td  className="tcenter">{stat.responses}</td><td  className="tcenter">{stat.participants}</td></tr>)}
           </tbody>
-        </table>
-        </div>
+        </table></div>) : 
+        (Array.isArray(this.state.stats) && this.state.stats.length === 0) ? <p className="loadingText">There is no data for this group</p> : ''}
+      </div>
       </div>
     );
   }
