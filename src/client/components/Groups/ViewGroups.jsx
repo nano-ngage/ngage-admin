@@ -62,10 +62,13 @@ class ViewGroups extends Component {
   render() {
     return (
       <div className="pptcontainer">
-      <div className="viewContainer">
       <div className="create">
-        <Link to="/createGroup" className="createText"><img src="http://i66.tinypic.com/2i2l43.png" height="20px" className="icon" />&nbsp;New Group</Link>
-      </div>
+      <div className="addNew">
+        <Link to="/createGroup" className="createText">
+        <img src="http://i65.tinypic.com/2i8f7uh.png" height="20px" className="icon" />&nbsp;New Group
+        </Link>
+      </div></div>
+      <div className="viewContainer">
         {this.props.groups.length > 0 ? (this.props.groups.map((group, index) => {
             return (
               <ViewGroup group={group} key={index} delete={this.deleteGroup}/>

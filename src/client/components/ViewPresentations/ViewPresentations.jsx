@@ -80,10 +80,11 @@ class ViewPresentations extends Component {
   render() {
     return (
       <div className="pptcontainer">
-      <div className="viewContainer">
       <div className="create">
-        <Link to="/create" className="createText"><img src="http://i65.tinypic.com/2i12vb4.png" height="20px" className="icon" />&nbsp;New Presentation</Link>
-      </div>
+      <div className="addNew">
+        <Link to="/create" className="createText"><img src="http://i65.tinypic.com/21o1tdt.png" height="18px" className="icon" />&nbsp;New Presentation</Link>
+      </div></div>
+      <div className="viewContainer">
         {this.props.ppts.length > 0 ? (this.props.ppts.map((ppt, index) => {
             return (
               <ViewPpt ppt={ppt} key={index} delete={this.deletePpt} start={this.generateRoomCode} />
