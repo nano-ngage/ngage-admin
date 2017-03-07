@@ -39,13 +39,13 @@ class UserStats extends Component {
             <th className="tcenter">Questions</th>
             <th className="tcenter">Responses</th>
             <th className="tcenter">Participants</th>
-            <th className="tcenter">Date</th>
+            <th className="tcenter">Date (D/M/Y)</th>
           </tr>
           </thead>
           <tbody>
             {this.state.stats.map(stat => <tr className="shadow"><td>{stat.title}</td><td className="tcenter">{stat.questions}</td><td className="tcenter">{stat.responses}</td><td className="tcenter">{stat.participants}</td><td className="tcenter">{stat.createdAt}</td></tr>)}
           </tbody>
-        </table></div>) : (Array.isArray(this.state.stats) && this.state.stats.length === 0) ? <p className="loadingText">There is no data for this group</p> : ''}
+        </table><br /><br /><br /></div>) : (Array.isArray(this.state.stats) && this.state.stats.length === 0) ? <p className="loadingText">There is no data for this group</p> : ''}
       </div>
     );
   }
