@@ -156,9 +156,6 @@ body {
 .button:hover {
     background-color: #43a047;
 }
-.buttonMenu {
-  display: flex;
-}
 .submitFlex{
   display: flex;
   width: 75vw;
@@ -334,15 +331,30 @@ body {
 }
 .create{
   display: flex;
-  width: 74.5vw;
+  width: 83vw;
+  margin-right: 20vmin;
   justify-content: flex-end;
 }
 .createText {
   font-size: 1.4rem;
   font-weight: 600;
   font-family: Arial, Helvetica, sans-serif;
-  color: #000000;
+  color: #ffffff;
   text-decoration: none;
+}
+.addNew {
+  display: flex;
+  background-color: #2f4961;
+  box-shadow: 5px 5px 5px 0 rgba(230,230,230,2);
+  margin-right: 10vmin;
+  padding: 10px;
+  border-radius: 5px;
+  text-decoration: none;
+  justify-content: space-between;
+  align-items: center;
+}
+.addNew:hover {
+  background-color: #3E607F;
 }
 .viewPpt {
   display: flex;
@@ -550,78 +562,155 @@ body, p, h1, h2, h3, h4, ul, li {
     align-items: center;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 .graph .labels.x-labels {
   text-anchor: middle;
+  color: #5c5c5c;
 }
-
 .graph .labels.y-labels {
   text-anchor: end;
+  color: #5c5c5c;
 }
-
-
 .graph {
   height: 500px;
   width: 1000px;
 }
-
 .graph .grid {
   stroke: #ccc;
   stroke-dasharray: 0;
   stroke-width: 1;
 }
-
 .labels {
   font-size: 13px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #5c5c5c;
 }
-
 .label-title {
   font-weight: bold;
   text-transform: uppercase;
   font-size: 12px;
-  fill: black;
+  fill: #5c5c5c;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #5c5c5c;
 }
 .label-title-x {
   font-weight: bold;
   text-transform: uppercase;
   font-size: 12px;
-  fill: black;
+  fill: #5c5c5c;
   text-orientation: sideways-right;
   writing-mode: vertical-lr;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #5c5c5c;
 }
 .data {
-  fill: red;
+  fill: #288a2b;
   stroke-width: 1; 
+  font-family: Arial, Helvetica, sans-serif;
 }
 .data2 {
-  fill: blue;
+  fill: #2f4961;
   stroke-width: 1; 
+  font-family: Arial, Helvetica, sans-serif;
 }
-
+.x-labels {
+  fill: #5c5c5c;
+  color: #5c5c5c;
+}
+.y-labels {
+  fill: #5c5c5c;
+  color: #5c5c5c;
+}
 .x-axis {
+  fill: #5c5c5c;
+  color: #5c5c5c;
   text-orientation: sideways-right;
   writing-mode: vertical-lr;
   /*transform: rotate(90deg);*/
   /*-webkit-transform: rotate(90deg);*/
 }
-
 .zoom {
   /*margin-top: 1vmin;*/
   margin-left: 30vmin;
   zoom: 110%;
 }
 .presentationTitle {
+  margin-top: 3vmin;
   text-align: center;
+  font-size: 1.8rem;
+  font-weight: 600;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #5c5c5c;
+}
+.loading {
+  position: absolute;
+  left: 50vw;
+  top: 50vh;
+}
+.loadingText {
+  margin-top: 3vmin;
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 600;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #288a2b;
+}
+.styled-select {
+   background: url(http://i62.tinypic.com/15xvbd5.png) no-repeat 96% 0;
+   -webkit-appearance: none;
+   -moz-appearance: none;
+   height: 29px;
+   overflow: hidden;
+   width: 240px;
+   font-size: 0.9rem;
+   font-family: Arial, Helvetica, sans-serif;
+   color: #5c5c5c;
+   margin-top: 3vmin;
+   margin-bottom: 3vmin;
+}
+.styled-select select {
+   font-size: 0.9rem;
+   font-family: Arial, Helvetica, sans-serif;
+   color: #5c5c5c;
+   background: transparent;
+   border: none;
+   height: 29px;
+   padding-left: 10px; 
+   width: 268px;
+}
+table {
+   font-size: 1rem;
+   font-family: Arial, Helvetica, sans-serif;
+   color: #5c5c5c;
+}
+thead {
+  text-align: left;
+  height: 1.2rem;
+}
+td {
+  width: 150px;
+  height: 1.2rem;
+}
+th {
+  border-bottom: 2px solid #a9a9a9;
+}
+table, tbody, tr, td {
+  border: none !important;
+  margin: 0px;
+  padding: 6px;
+  border-collapse: collapse;
+}
+.twidth {
+  width: 125px;
+}
+.tcenter {
+  text-align: center;
+}
+.shadow:nth-child(2n) {
+  background-color: #ffffff;
+}
+.shadow:nth-child(2n+1) {
+  background-color: #e9e9e9
+}
+.shadow:hover {
+  background-color: #a9a9a9;
 }
