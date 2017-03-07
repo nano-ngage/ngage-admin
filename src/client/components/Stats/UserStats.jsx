@@ -13,7 +13,7 @@ class UserStats extends Component {
   constructor(props) {
     super(props);
     this.state = {  
-      stats: []
+      stats: 'loading'
     }
   }
   componentDidMount() {
@@ -25,23 +25,27 @@ class UserStats extends Component {
       .catch(error => { console.log(error, 'unknown error loading session data.. refresh'); });
     }
   }
+
   render() {
     return (
-      <div >
-        <table>
+      <div className="row">
+      {this.state.stats === 'loading' ? <div><img src="http://i66.tinypic.com/2qvw0ax.gif" /><p className="loadingText">Loading...</p></div> :  
+        (Array.isArray(this.state.stats) && this.state.stats.length > 0) ? 
+        (<div><h1 className="presentationTitle">Session Statistics</h1><br/><br/>
+          <table>
           <thead>
           <tr>
-            <th>Title</th>
-            <th>Questions</th>
-            <th>Responses</th>
-            <th>Participants</th>
-            <th>Date</th>
+            <th>&nbsp;Title</th>
+            <th className="tcenter">Questions</th>
+            <th className="tcenter">Responses</th>
+            <th className="tcenter">Participants</th>
+            <th className="tcenter">Date</th>
           </tr>
           </thead>
           <tbody>
-            {this.state.stats.map(stat => <tr><td>{stat.title}</td><td>{stat.questions}</td><td>{stat.responses}</td><td>{stat.participants}</td><td>{stat.createdAt}</td></tr>)}
+            {this.state.stats.map(stat => <tr className="shadow"><td>{stat.title}</td><td className="tcenter">{stat.questions}</td><td className="tcenter">{stat.responses}</td><td className="tcenter">{stat.participants}</td><td className="tcenter">{stat.createdAt}</td></tr>)}
           </tbody>
-        </table>
+        </table></div>) : (Array.isArray(this.state.stats) && this.state.stats.length === 0) ? <p className="loadingText">There is no data for this group</p> : ''}
       </div>
     );
   }
