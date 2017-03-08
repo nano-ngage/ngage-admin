@@ -67,6 +67,7 @@ export default class AuthService extends EventEmitter {
 
   loginUser(profile) {
     profile.auth_id = profile.user_id;
+    profile.type = 0;
     getLogin(profile).then(user => {
       window.localStorage.setItem('user', JSON.stringify(user));
       this.handleUser(user);
