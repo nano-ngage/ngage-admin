@@ -570,6 +570,10 @@ body, p, h1, h2, h3, h4, ul, li {
   text-anchor: end;
   color: #5c5c5c;
 }
+.graph .labels.y2-labels {
+  text-anchor: start;
+  color: #5c5c5c;
+}
 .graph {
   height: 500px;
   width: 1000px;
@@ -595,7 +599,16 @@ body, p, h1, h2, h3, h4, ul, li {
   font-weight: bold;
   font-size: 16px;
   fill: #5c5c5c;
-  text-orientation: sideways-right;
+  /*text-orientation: sideways-rl;*/
+  writing-mode: vertical-rl;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #5c5c5c;
+}
+.label-title-x2 {
+  font-weight: bold;
+  font-size: 16px;
+  fill: #5c5c5c;
+  /*text-orientation: sideways-rl;*/
   writing-mode: vertical-lr;
   font-family: Arial, Helvetica, sans-serif;
   color: #5c5c5c;
@@ -610,11 +623,20 @@ body, p, h1, h2, h3, h4, ul, li {
   stroke-width: 1; 
   font-family: Arial, Helvetica, sans-serif;
 }
+.data3 {
+  fill: #721817;
+  stroke-width: 1; 
+  font-family: Arial, Helvetica, sans-serif;
+}
 .x-labels {
   fill: #5c5c5c;
   color: #5c5c5c;
 }
 .y-labels {
+  fill: #5c5c5c;
+  color: #5c5c5c;
+}
+.y2-labels {
   fill: #5c5c5c;
   color: #5c5c5c;
 }
@@ -736,7 +758,7 @@ table, tbody, tr, td {
 input[type=range] {
   -webkit-appearance: none;
   margin: 18px 0;
-  width: 18vw;
+  width: 18.1vw;
 }
 input[type=range]:focus {
   outline: none;
