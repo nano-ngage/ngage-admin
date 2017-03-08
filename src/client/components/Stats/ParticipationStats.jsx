@@ -1,5 +1,6 @@
 import Inferno from 'inferno';
 import Component from 'inferno-component';
+import { Link } from 'inferno-router';
 
 var statsURL = `http://${STATSIP}:${STATSPORT}`;
 function getParticipationStats(userID, groupID) {
@@ -104,13 +105,14 @@ class ParticipationStats extends Component {
     super(props);
     this.state = {
       stats: null,
-      selectDate: '1900-01-01',
+      selectDate: null,
       sliderPos: -1,
       pieChart: null
     }
     this.handleChange = this.handleChange.bind(this);
     this.setChart = this.setChart.bind(this);
   }
+
   componentDidMount() {
     var that = this;
     if (this.props.user && !this.state.stats) {
@@ -120,15 +122,16 @@ class ParticipationStats extends Component {
           that.setChart(data.length-1);
         });
        })
-      .catch(error => { console.log('unknown error loading participation data.. refresh'); });
+      .catch(error => { this.setState({selectDate: null})});
     }
   }
+
   setChart(val) {
     var curStat = this.state.stats[val];
     var total = 0 + curStat['0.0'] + curStat['0.4'] + curStat['0.6'] + curStat['0.8'] + curStat['1.0'];
     this.setState({selectDate: curStat.createdAt, sliderPos: val, pieChart:calculateSectors(getData(curStat, total))});
-
   }
+
   handleChange(e) {
     this.setChart(e.target.value);
   }
@@ -136,16 +139,15 @@ class ParticipationStats extends Component {
   render() {
     return (
       <div>
-        {this.state.stats ? (
+        {(this.state.selectDate === null) ? (<div className="row"><p className="loadingText">You have no sessions. <br/>
+        Click&nbsp;<Link to="/view" className="loadingText">here</Link>&nbsp;to start your first presentation session!</p></div>) :
           <div><div className="row">
             <h1 className="presentationTitle">Select Presentation Date</h1><br/><br/></div>
             <div className="row">
             <input onChange={this.handleChange} width="300px" type="range" min="0" max={this.state.stats.length - 1} />
             <div className="selectDate">{this.state.selectDate}</div>
           </div></div>
-          ) : <div></div>}
-        {
-          (this.state.pieChart) ? (
+         (this.state.pieChart) ? (
               <div className="row">
                 <svg className="pieChart">
                 {this.state.pieChart.map(sector => <path fill={sector.color} 
