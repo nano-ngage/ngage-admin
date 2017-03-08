@@ -73,7 +73,7 @@ class ViewPresentations extends Component {
     var length = 6;
     var code = Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).slice(1);
     startPpt(pid, code).then(data => {
-      window.location.replace('http://104.131.147.199:3000/presentation/' + data.socket);
+      window.location.replace('http://nano-ngage.com/presentation/' + data.socket);
     });
   }
 
