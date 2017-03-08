@@ -2,6 +2,7 @@ import { EventEmitter } from 'events';
 import { isTokenExpired } from './jwtHelper';
 import { getLogin } from './authHelper';
 import Auth0Lock from 'auth0-lock';
+import 'whatwg-fetch';
 
 
 export default class AuthService extends EventEmitter {

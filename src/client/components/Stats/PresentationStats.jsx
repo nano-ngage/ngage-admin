@@ -53,8 +53,8 @@ class PresentationStats extends Component {
   handleChange(e) {
     e.preventDefault();
     var option = e.target.value;
+    this.setState({stats: 'loading'});
     if (e.target.value != -1) {
-      this.setState({stats: 'loading'});
       var index = e.target.selectedIndex;
       this.setState({title: e.target[index].text});
       getPresentationStats(e.target.value).then(stats => {
@@ -100,7 +100,7 @@ class PresentationStats extends Component {
                 <line x1={this.state.stats.length*30 + 85}  x2={this.state.stats.length*30 + 85} y1="5" y2='371'></line>
               </g>
                 <g className="labels x-labels">
-                {this.state.stats.map((stat, index) => <text className="x-axis" x={index*30 + 100} y="400">{stat.createdAt.toString().substring(0, 5)}</text>)}
+                {this.state.stats.map((stat, index) => <text className="x-axis" x="-398" y={index*(30) + 105}>{stat.createdAt.toString().substring(0, 5)}</text>)}
                 <text x={this.state.stats.length*15 + 100}  y="440" className="label-title">Presentation Date</text>
               </g>
               <g className="labels y2-labels">
@@ -108,14 +108,14 @@ class PresentationStats extends Component {
                 <text x={this.state.stats.length*30 + 90} y="131">75%</text>
                 <text x={this.state.stats.length*30 + 90} y="248">25%</text>
                 <text x={this.state.stats.length*30 + 90} y="373">0%</text>
-                <text x={this.state.stats.length*30 + 135} y="130" className="label-title-x2">Response Rate</text>
+                <text x='130' y={this.state.stats.length*(-30) - 133} className="label-title-x2">Response Rate</text>
               </g>
               <g className="labels y-labels">
                 <text x="80" y="15">{this.state.maxy}</text>
                 <text x="80" y="131">{Math.floor(this.state.maxy * 2 / 3)}</text>
                 <text x="80" y="248">{Math.floor(this.state.maxy * 1 / 3)}</text>
                 <text x="80" y="373">0</text>
-                <text x="50" y="285" className="label-title-x">Responses / Participants</text>
+                <text x="-93" y="41" className="label-title-x">Responses / Participants</text>
               </g>
               <g className="data" data-setname="Responses">
                 <circle cx={this.state.stats.length*28 - 10}  cy="30" r="5"></circle>

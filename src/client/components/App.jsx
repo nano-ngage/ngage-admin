@@ -1,7 +1,7 @@
 import Inferno from 'inferno';
 import Component from 'inferno-component';
-
 import Nav from './common/Nav.jsx';
+import 'whatwg-fetch';
 
 
 export default class App extends Component {
