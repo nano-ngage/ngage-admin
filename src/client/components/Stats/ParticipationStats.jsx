@@ -112,7 +112,6 @@ class ParticipationStats extends Component {
     this.setChart = this.setChart.bind(this);
   }
   componentDidMount() {
-    console.log('in mount');
     var that = this;
     if (this.props.user && !this.state.stats) {
       getParticipationStats(this.props.user.userID)
