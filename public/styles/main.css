@@ -600,7 +600,12 @@ body, p, h1, h2, h3, h4, ul, li {
   font-size: 16px;
   fill: #5c5c5c;
   /*text-orientation: sideways-rl;*/
-  writing-mode: vertical-rl;
+  /*writing-mode: vertical-rl;*/
+  /*-webkit-transform: rotate(90deg);*/
+  -ms-transform:rotate(270deg); /* IE 9 */
+  -moz-transform:rotate(270deg); /* Firefox */
+  -webkit-transform:rotate(270deg); /* Safari and Chrome */
+  -o-transform:rotate(270deg); /* Opera */
   font-family: Arial, Helvetica, sans-serif;
   color: #5c5c5c;
 }
@@ -609,7 +614,12 @@ body, p, h1, h2, h3, h4, ul, li {
   font-size: 16px;
   fill: #5c5c5c;
   /*text-orientation: sideways-rl;*/
-  writing-mode: vertical-lr;
+  /*writing-mode: vertical-lr;*/
+  /*-webkit-transform: rotate(90deg);*/
+  -ms-transform:rotate(90deg); /* IE 9 */
+  -moz-transform:rotate(90deg); /* Firefox */
+  -webkit-transform:rotate(90deg); /* Safari and Chrome */
+  -o-transform:rotate(90deg); /* Opera */
   font-family: Arial, Helvetica, sans-serif;
   color: #5c5c5c;
 }
@@ -643,8 +653,12 @@ body, p, h1, h2, h3, h4, ul, li {
 .x-axis {
   fill: #5c5c5c;
   color: #5c5c5c;
-  text-orientation: sideways-right;
-  writing-mode: vertical-lr;
+  -ms-transform:rotate(270deg); /* IE 9 */
+  -moz-transform:rotate(270deg); /* Firefox */
+  -webkit-transform:rotate(270deg); /* Safari and Chrome */
+  -o-transform:rotate(270deg); /* Opera */
+  /*text-orientation: sideways-right;*/
+  /*writing-mode: vertical-lr;*/
   /*transform: rotate(90deg);*/
   /*-webkit-transform: rotate(90deg);*/
 }
@@ -799,7 +813,7 @@ input[type=range]::-moz-range-track {
 }
 input[type=range]::-moz-range-thumb {
   box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-  border: 1px solid #5c5c5c
+  border: 1px solid #5c5c5c;
   height: 25px;
   width: 10px;
   border-radius: 3px;

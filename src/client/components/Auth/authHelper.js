@@ -1,3 +1,5 @@
+import 'whatwg-fetch';
+
 export function getLogin(login){
   var myInit = { method: 'POST',
                headers: {"Content-Type": "application/json"},
