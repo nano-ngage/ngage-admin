@@ -1,5 +1,6 @@
 import Inferno from 'inferno';
 import Component from 'inferno-component';
+import { Link } from 'inferno-router';
 
 var dbURL = `http://${DBIP}:${DBPORT}`;
 var statsURL = `http://${STATSIP}:${STATSPORT}`;
@@ -36,7 +37,7 @@ class GroupStats extends Component {
       .then(data => { 
         this.setState({groups: data});
        })
-      .catch(error => { console.log('unknown error loading group data.. refresh'); });
+      .catch(error => { this.setState({groups: []});});
     }
   }
 
@@ -46,7 +47,7 @@ class GroupStats extends Component {
       .then(data => { 
         this.setState({groups: data});
        })
-      .catch(error => { console.log('unknown error loading group data.. refresh'); });
+      .catch(error => { this.setState({groups: []}); });
     }
   }
 
@@ -66,18 +67,21 @@ class GroupStats extends Component {
         }
         var sorted = stats.sort(compare);
         this.setState({stats: sorted});
-      });
+      })
+      .catch(error => { this.setState({stats: []}); });;
     }
   }
 
   render() {
+    console.log(this.state)
     return (
       <div>
       <div className="row">
+       {(Array.isArray(this.state.groups) && this.state.groups.length === 0) ?  <div><p className="loadingText">You have no groups. <br/>Click&nbsp;<Link to="/creategroup" className="loadingText">here</Link>&nbsp;to create your first group!</p></div> :
         <select onChange={this.handleChange}  className="styled-select slate">
           <option value="-1">&nbsp; Please select a group</option>
           {this.state.groups.map(group => <option value={group.groupID}>&nbsp; {group.name}</option>)}
-        </select>
+        </select>}
         </div>
         <div className="row">
         {this.state.stats === 'loading' ? <div><img src="http://i66.tinypic.com/2qvw0ax.gif" /><p className="loadingText">Loading...</p></div> :  

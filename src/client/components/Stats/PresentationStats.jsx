@@ -1,5 +1,6 @@
 import Inferno from 'inferno';
 import Component from 'inferno-component';
+import { Link } from 'inferno-router';
 
 var dbURL = `http://${DBIP}:${DBPORT}`;
 var statsURL = `http://${STATSIP}:${STATSPORT}`;
@@ -38,16 +39,16 @@ class PresentationStats extends Component {
       .then(presentations => { 
         this.setState({presentations});
        })
-      .catch(error => { console.log('unknown error loading presentation data.. refresh'); });
+      .catch(error => { this.setState({presentations: 'none'}); });
     }
   }
   componentWillReceiveProps(nextProps) {
     if (!this.props.user && nextProps.user) {
       getPresentations(nextProps.user.userID)
-      .then(presentations => { 
-        this.setState({presentations});
+      .then(presentations => {
+          this.setState({presentations});
        })
-      .catch(error => { console.log('unknown error loading presentation data.. refresh'); });
+      .catch(error => { this.setState({presentations: 'none'}); });
     }
   }
   handleChange(e) {
@@ -66,7 +67,8 @@ class PresentationStats extends Component {
         }
         this.setState({maxy:max});
         this.setState({stats: stats});
-      })
+      }).catch(() => 
+        this.setState({stats: []}))
     } else {
       this.setState({stats:null})
     }
@@ -79,7 +81,7 @@ class PresentationStats extends Component {
       <div className="row">
         <select onChange={this.handleChange} className="styled-select slate" value={this.state.optionsState} >
           <option value="-1">&nbsp; Please select a presentation</option>
-          {this.state.presentations.map(presentation => <option value={presentation.presentationID}>&nbsp; {presentation.title}</option>)}
+          {(typeof this.state.presentations !== 'string') ? this.state.presentations.map(presentation => <option value={presentation.presentationID}>&nbsp; {presentation.title}</option>) : ''}
         </select>
         </div><div className="row">
         {(this.state.stats === 'loading') ? <div><img src="http://i66.tinypic.com/2qvw0ax.gif" /><p className="loadingText">Loading...</p></div> : 
@@ -135,7 +137,7 @@ class PresentationStats extends Component {
             </svg>
           </div>
           ) : (Array.isArray(this.state.stats) && this.state.stats.length === 0) ? <p className="loadingText">There is no data for this presentation</p> : <div/>}
-
+         {(this.state.presentations === 'none') ? <div><p className="loadingText">You have no presentations. <br/>Click&nbsp;<Link to="/create" className="loadingText">here</Link>&nbsp;to create a presentation!</p></div> : <div/>}
       </div>
       </div>
     );

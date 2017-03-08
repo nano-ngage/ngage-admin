@@ -49,7 +49,6 @@ class ViewPresentations extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (!this.props.user && nextProps.user) {
-    console.log('receive props', this.props);
       getPpts(nextProps.user.userID)
       .then(data => { 
          this.props.handlePresentations(data)

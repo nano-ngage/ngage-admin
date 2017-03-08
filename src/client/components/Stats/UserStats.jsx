@@ -1,5 +1,6 @@
 import Inferno from 'inferno';
 import Component from 'inferno-component';
+import { Link } from 'inferno-router';
 
 var statsURL = `http://${STATSIP}:${STATSPORT}`;
 function getSessionStats(userID) {
@@ -13,7 +14,7 @@ class UserStats extends Component {
   constructor(props) {
     super(props);
     this.state = {  
-      stats: 'loading'
+      stats: []
     }
   }
   componentDidMount() {
@@ -22,7 +23,7 @@ class UserStats extends Component {
       .then(stats => { 
         this.setState({stats});
        })
-      .catch(error => { console.log(error, 'unknown error loading session data.. refresh'); });
+      .catch(error => { this.setState({stats: []});});
     }
   }
 
@@ -45,7 +46,7 @@ class UserStats extends Component {
           <tbody>
             {this.state.stats.map(stat => <tr className="shadow"><td>{stat.title}</td><td className="tcenter">{stat.questions}</td><td className="tcenter">{stat.responses}</td><td className="tcenter">{stat.participants}</td><td className="tcenter">{stat.createdAt}</td></tr>)}
           </tbody>
-        </table><br /><br /><br /></div>) : (Array.isArray(this.state.stats) && this.state.stats.length === 0) ? <p className="loadingText">There is no data for this group</p> : ''}
+        </table><br /><br /><br /></div>) : (Array.isArray(this.state.stats) && this.state.stats.length === 0) ?  <div><p className="loadingText">You have no sessions. <br/>Click&nbsp;<Link to="/view" className="loadingText">here</Link>&nbsp;to start your first presentation session!</p></div> : <div/>}
       </div>
     );
   }
