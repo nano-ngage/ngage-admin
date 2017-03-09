@@ -145,7 +145,7 @@ class ParticipationStats extends Component {
     return (
       <div>
         {(this.state.selectDate === null) ? (<div className="row"><p className="loadingText">You have no sessions. <br/>
-        Click&nbsp;<Link to="/view" className="loadingText">here</Link>&nbsp;to start your first presentation session!</p></div>) : (this.state.selectDate === 'loading' && this.state.stats === null) ? '' :
+        Click&nbsp;<Link to="/presentations" className="loadingText">here</Link>&nbsp;to start your first presentation session!</p></div>) : (this.state.selectDate === 'loading' && this.state.stats === null) ? '' :
           <div><div className="row">
             <h1 className="presentationTitle">Select Presentation Date</h1><br/><br/></div>
             <div className="row">

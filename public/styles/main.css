@@ -869,3 +869,6 @@ input[type=range]:focus::-ms-fill-upper {
   font-family: Arial, Helvetica, sans-serif;
   font-weight: 600;
 }
+.hover:hover {
+  background-color: #43a047;
+}
