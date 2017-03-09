@@ -107,7 +107,7 @@ class ParticipationStats extends Component {
       stats: null,
       selectDate: 'loading',
       sliderPos: -1,
-      pieChart: null
+      pieChart: 'loading'
     }
     this.handleChange = this.handleChange.bind(this);
     this.setChart = this.setChart.bind(this);
@@ -118,6 +118,7 @@ class ParticipationStats extends Component {
     if (this.props.user && !this.state.stats) {
       getParticipationStats(this.props.user.userID)
       .then(data => { 
+        console.log(data)
         if (data.length === 0) {
           this.setState({selectDate: null});
         } else {
@@ -126,12 +127,13 @@ class ParticipationStats extends Component {
           });
         }
        })
-      .catch(error => { this.setState({selectDate: null}) });
+      .catch(error => { console.log(error) });
     }
   }
 
   setChart(val) {
     var curStat = this.state.stats[val];
+    console.log(curStat)
     var total = 0 + curStat['0.0'] + curStat['0.4'] + curStat['0.6'] + curStat['0.8'] + curStat['1.0'];
     this.setState({selectDate: curStat.createdAt, sliderPos: val, pieChart:calculateSectors(getData(curStat, total))});
   }
@@ -144,34 +146,38 @@ class ParticipationStats extends Component {
     console.log(this.state)
     return (
       <div>
-        {(this.state.selectDate === null) ? (<div className="row"><p className="loadingText">You have no sessions. <br/>
-        Click&nbsp;<Link to="/presentations" className="loadingText">here</Link>&nbsp;to start your first presentation session!</p></div>) : (this.state.selectDate === 'loading' && this.state.stats === null) ? '' :
-          <div><div className="row">
-            <h1 className="presentationTitle">Select Presentation Date</h1><br/><br/></div>
-            <div className="row">
-            <input onChange={this.handleChange} width="300px" type="range" min="0" max={this.state.stats.length - 1} />
-            <div className="selectDate">{this.state.selectDate}</div>
-          </div></div>
-         (this.state.pieChart) ? (
+        {(this.state.selectDate === null) ? 
+          (<div className="row"><p className="loadingText">You have no sessions. <br/>
+            Click&nbsp;<Link to="/presentations" className="loadingText">here</Link>
+            &nbsp;to start your first presentation session!</p></div>) :
+          (<div>
+              <div className="row"><h1 className="presentationTitle">Select Presentation Date</h1><br/><br/></div>
               <div className="row">
-                <svg className="pieChart">
+              <input onChange={this.handleChange} width="300px" type="range" min="0" max={(this.state.stats) ? this.state.stats.length - 1 : 0} />
+              <div className="selectDate">{this.state.selectDate}</div>
+            </div></div>)}
+
+          {(Array.isArray(this.state.pieChart) && this.state.pieChart.length > 0) ?
+            (<div className="row">
+              <svg className="pieChart">
                 {this.state.pieChart.map(sector => <path fill={sector.color} 
-                  d={'M' + sector.L + ',' + sector.L + ' L' + sector.L + ',0 A' + sector.L + ',' + sector.L + ' 1 ' + sector.large + ',1 ' + sector.X + ', ' + sector.Y + ' z'} 
-                  transform={'rotate(' + sector.R + ', '+ sector.L+', '+ sector.L+')'}></path>)}
-                </svg>
-                <svg>
+                d={'M' + sector.L + ',' + sector.L + ' L' + sector.L + ',0 A' + sector.L + ',' + sector.L + ' 1 ' + sector.large + ',1 ' + sector.X + ', ' + sector.Y + ' z'} 
+                transform={'rotate(' + sector.R + ', '+ sector.L+', '+ sector.L+')'}></path>)}
+              </svg>
+              <svg>
                 <g className="legend-item" fill='#5c5c5c' data-setname="Participants">
                   <circle cx="10" cy='80' r="0"></circle>
                   <text x="14"  y='85'>% of Users Who Answered:</text>
                 </g>
+
                 {this.state.pieChart.map((sector,index) => <g className="legend-item" fill={sector.color} data-setname="Participants">
                   <circle cx="20" cy={index*20 + 100} r="5"></circle>
                   <text x="30"  y={index*20 + 105} >{sector.label*100 + '%'} of Questions</text>
                 </g>)}
-                </svg>
-              </div>
-            ) : (<div className="row"><div><img src="http://i66.tinypic.com/2qvw0ax.gif" /><p className="loadingText">Loading...</p></div></div>)
-        }
+              </svg>
+            </div>) : 
+            (<div className="row"><div><img src="http://i66.tinypic.com/2qvw0ax.gif" />
+            <p className="loadingText">Loading...</p></div></div>)}
       </div>
     );
   }
