@@ -62,10 +62,10 @@ class AddUser extends Component {
           {this.state.potentialUsers.length > 0 ?
             (<div>{this.state.potentialUsers.map((user, index) => {
                 return (
-                  <div className="viewQuestion">
+                  <div className="viewQuestion hover">
                       <span className="title">{user.firstName + ' ' + user.lastName}</span>
                         <span className="actions">
-                        <span className="correct" onClick={() => {this.handleAdd(user)}}>Add User</span>
+                        <span className="correct" onClick={() => {this.handleAdd(user)}}>+ Add User</span>
                       </span>
                   </div>
                 )

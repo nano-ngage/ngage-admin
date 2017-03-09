@@ -46,7 +46,7 @@ class UserStats extends Component {
           <tbody>
             {this.state.stats.map(stat => <tr className="shadow"><td>{stat.title}</td><td className="tcenter">{stat.questions}</td><td className="tcenter">{stat.responses}</td><td className="tcenter">{stat.participants}</td><td className="tcenter">{stat.createdAt}</td></tr>)}
           </tbody>
-        </table><br /><br /><br /></div>) : (Array.isArray(this.state.stats) && this.state.stats.length === 0) ?  <div><p className="loadingText">You have no sessions. <br/>Click&nbsp;<Link to="/view" className="loadingText">here</Link>&nbsp;to start your first presentation session!</p></div> : <div/>}
+        </table><br /><br /><br /></div>) : (Array.isArray(this.state.stats) && this.state.stats.length === 0) ?  <div><p className="loadingText">You have no sessions. <br/>Click&nbsp;<Link to="/presentations" className="loadingText">here</Link>&nbsp;to start your first presentation session!</p></div> : <div/>}
       </div>
     );
   }
