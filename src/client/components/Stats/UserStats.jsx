@@ -14,7 +14,7 @@ class UserStats extends Component {
   constructor(props) {
     super(props);
     this.state = {  
-      stats: []
+      stats: 'loading'
     }
   }
   componentDidMount() {
