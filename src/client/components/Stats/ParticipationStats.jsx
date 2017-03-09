@@ -105,7 +105,7 @@ class ParticipationStats extends Component {
     super(props);
     this.state = {
       stats: null,
-      selectDate: null,
+      selectDate: 'loading',
       sliderPos: -1,
       pieChart: null
     }
@@ -118,11 +118,15 @@ class ParticipationStats extends Component {
     if (this.props.user && !this.state.stats) {
       getParticipationStats(this.props.user.userID)
       .then(data => { 
-        this.setState({stats: data, selectDate: data[data.length-1].createdAt, sliderPos: data.length-1}, () => {
-          that.setChart(data.length-1);
-        });
+        if (data.length === 0) {
+          this.setState({selectDate: null});
+        } else {
+          this.setState({stats: data, selectDate: data[data.length-1].createdAt, sliderPos: data.length-1}, () => {
+            that.setChart(data.length-1);
+          });
+        }
        })
-      .catch(error => { this.setState({selectDate: null})});
+      .catch(error => { this.setState({selectDate: null}) });
     }
   }
 
@@ -137,10 +141,11 @@ class ParticipationStats extends Component {
   }
 
   render() {
+    console.log(this.state)
     return (
       <div>
         {(this.state.selectDate === null) ? (<div className="row"><p className="loadingText">You have no sessions. <br/>
-        Click&nbsp;<Link to="/view" className="loadingText">here</Link>&nbsp;to start your first presentation session!</p></div>) :
+        Click&nbsp;<Link to="/view" className="loadingText">here</Link>&nbsp;to start your first presentation session!</p></div>) : (this.state.selectDate === 'loading' && this.state.stats === null) ? '' :
           <div><div className="row">
             <h1 className="presentationTitle">Select Presentation Date</h1><br/><br/></div>
             <div className="row">

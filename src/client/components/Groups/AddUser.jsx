@@ -16,8 +16,7 @@ class AddUser extends Component {
     super(props);
     this.state = {
       search: '',
-      potentialUsers: [],
-      checked: false
+      potentialUsers: []
     };
 
     dbURL = `http://104.131.147.199:5000`;
@@ -66,7 +65,6 @@ class AddUser extends Component {
                   <div className="viewQuestion">
                       <span className="title">{user.firstName + ' ' + user.lastName}</span>
                         <span className="actions">
-                        <input type="checkbox" className="check" onClick={() => {this.handleAdd(user)}} checked={this.state.checked} />
                         <span className="correct" onClick={() => {this.handleAdd(user)}}>Add User</span>
                       </span>
                   </div>

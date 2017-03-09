@@ -396,6 +396,7 @@ body {
   color:#ffffff;
   margin-right: 25px;
   text-decoration: none;
+  cursor: pointer;
 }
 .correct:hover {
   text-decoration: none;
@@ -576,7 +577,6 @@ body, p, h1, h2, h3, h4, ul, li {
 }
 .graph {
   height: 500px;
-  width: 1000px;
 }
 .graph .grid {
   stroke: #a9a9a9;
@@ -663,8 +663,6 @@ body, p, h1, h2, h3, h4, ul, li {
   /*-webkit-transform: rotate(90deg);*/
 }
 .zoom {
-  /*margin-top: 1vmin;*/
-  margin-left: 30vmin;
   zoom: 110%;
 }
 .presentationTitle {
