@@ -118,7 +118,6 @@ class ParticipationStats extends Component {
     if (this.props.user && !this.state.stats) {
       getParticipationStats(this.props.user.userID)
       .then(data => { 
-        console.log(data)
         if (data.length === 0) {
           this.setState({selectDate: null});
         } else {
@@ -133,7 +132,6 @@ class ParticipationStats extends Component {
 
   setChart(val) {
     var curStat = this.state.stats[val];
-    console.log(curStat)
     var total = 0 + curStat['0.0'] + curStat['0.4'] + curStat['0.6'] + curStat['0.8'] + curStat['1.0'];
     this.setState({selectDate: curStat.createdAt, sliderPos: val, pieChart:calculateSectors(getData(curStat, total))});
   }
@@ -143,7 +141,6 @@ class ParticipationStats extends Component {
   }
 
   render() {
-    console.log(this.state)
     return (
       <div>
         {(this.state.selectDate === null) ? 
