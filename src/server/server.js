@@ -41,9 +41,20 @@ app.use(session({
   }
 }));
 
+// ============================================================
+// Intercepting .js & .css files to serve gzipped files instead
+// ============================================================
+
 app.get('*.js', function (req, res, next) {
   req.url = req.url + '.gz';
   res.set('Content-Encoding', 'gzip');
+  next();
+});
+
+app.get('*.css', function (req, res, next) {
+  req.url = req.url + '.gz';
+  res.set('Content-Encoding', 'gzip');
+  res.set('Content-Type', 'text/css');
   next();
 });
 
