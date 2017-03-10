@@ -5,4 +5,6 @@ import 'whatwg-fetch';
 const browserHistory = createBrowserHistory();
 window.browserHistory = browserHistory;
 
+import css from './css/main.css';
+
 Inferno.render(createRouter(browserHistory), document.getElementById('app'));
