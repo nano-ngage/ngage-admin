@@ -1,19 +1,24 @@
 const path = require('path');
 const webpack = require('webpack');
 const webpackValidator = require('webpack-validator');
-const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const getIfUtils = require('webpack-config-utils').getIfUtils;
-var CompressionPlugin = require('compression-webpack-plugin');
+
+const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
+const ImaginMinPlugin = require('imagemin-webpack-plugin').default;
 
 module.exports = env => {
   const { ifProd, ifNotProd } = getIfUtils(env);
-  return webpackValidator({
+  return ({
     entry: {
       app: path.join(__dirname, 'src', 'client', 'index.js')
     },
     output: {
-      filename: 'bundle.[name].js',
-      path: path.join(__dirname, 'public', 'js'),
+      filename: 'bundle.js',
+      path: path.join(__dirname, 'public', 'dist'),
       pathinfo: ifNotProd()
     },
     devtool: ifProd('source-map', 'eval'),
@@ -21,12 +26,15 @@ module.exports = env => {
       loaders: [
         {
           test: /\.jsx?$/,
-          loaders: [ 'babel' ],
+          loaders: [ 'babel-loader' ],
           exclude: /node_modules/
         },
         {
           test: /\.css$/,
-          loaders: [ 'style', 'css' ]
+          use: ExtractTextPlugin.extract({
+            fallback: 'style-loader',
+            use: 'css-loader'
+          })
         }
       ]
     },
@@ -47,6 +55,10 @@ module.exports = env => {
         threshold: 10240,
         minRatio: 0.8
       }),
+      new ExtractTextPlugin({
+        filename: 'styles.css'
+      }),
+      new OptimizeCssAssetsPlugin(),
     ]
   });
 }
