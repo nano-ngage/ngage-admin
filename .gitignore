@@ -2,7 +2,7 @@
 node_modules/
 
 # Compiled Files
-public/js/
+public/dist/
 
 # Secret Files
 secrets.js
